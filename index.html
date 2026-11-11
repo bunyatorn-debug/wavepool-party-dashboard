@@ -1,0 +1,622 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Wavepool Party · Daily Ads Monitor</title><style>
+:root{color-scheme:light}*{box-sizing:border-box}html,body{height:100%}body{margin:0;background:#f4f7fb;color:#17283b;font:13px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif}
+button,select,input{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.35}a{color:#176db6}
+.shell{max-width:1900px;margin:0 auto;padding:22px 24px 34px}.top{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}.brand{display:flex;align-items:center;gap:13px}
+.brand-logo{height:38px;width:38px;border-radius:11px;background:#153c61;color:white;display:grid;place-items:center;font-weight:800;letter-spacing:.3px}
+.overline{color:#637d99;font-size:10px;font-weight:800;letter-spacing:1.1px;text-transform:uppercase}.top h1{font-size:21px;line-height:1.3;letter-spacing:-.4px;margin:2px 0}.top-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.chip{color:#4c6782;border:1px solid #d8e4ef;background:white;border-radius:6px;padding:7px 10px;white-space:nowrap;font-size:11px}
+.langbar{display:flex;background:#e9eff5;padding:3px;border-radius:9px}.langbar button{border:0;background:transparent;padding:6px 12px;border-radius:7px;color:#58708a;font-size:12px}.langbar button.selected{background:white;color:#173b5a;font-weight:700;box-shadow:0 1px 4px #12334b20}
+.summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:18px}.metric{background:white;border:1px solid #e0e9f2;border-radius:10px;padding:14px 17px}.metric p{margin:0;color:#6b8095;font-size:12px}.metric strong{display:block;font-size:24px;line-height:1.35;letter-spacing:-.2px;color:#153b5c;margin-top:4px}.metric small{color:#7f8f9f}
+.toolbar{margin-top:18px;border:1px solid #dce6ef;background:white;border-radius:11px 11px 0 0;overflow:hidden}.account-tabs,.level-tabs{display:flex;align-items:center;gap:4px;flex-wrap:wrap;padding:10px 13px}.account-tabs{border-bottom:1px solid #e5ebf3;background:#f9fbfd}.account-tabs button,.level-tabs button{border:1px solid transparent;background:none;border-radius:6px;padding:9px 14px;white-space:nowrap;color:#4d6580;font-weight:600}.account-tabs button.active,.level-tabs button.active{color:#11568d;border-color:#aac9e1;background:#eaf4fd}.count{display:inline-block;margin-left:7px;border-radius:5px;background:#e1eaf3;padding:1px 5px;font-size:10px;color:#536c84}
+.filters{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:11px 13px;background:#f9fbfe;border-top:1px solid #e5ebf3}.filters input{flex:1;min-width:180px;max-width:410px;border:1px solid #d7e2ee;padding:9px 12px;border-radius:7px;background:white;color:#203650;outline:none}.filters input:focus{border-color:#3781bd;box-shadow:0 0 0 2px #3781bd22}
+.filters select{border:1px solid #d7e2ee;border-radius:7px;background:white;padding:8px 10px;color:#405e7a}.spacer{flex:1}.paging{display:flex;align-items:center;gap:6px}.paging span{font-size:12px;color:#50667c;white-space:nowrap}.paging button{border:1px solid #d7e2ee;background:white;color:#315270;border-radius:6px;padding:7px 11px}
+.note{padding:8px 14px;color:#71869a;background:#fff;border:1px solid #e1eaf2;border-top:0;border-radius:0 0 9px 9px;font-size:11px}.warn{padding:10px 14px;border:1px solid #efd5a2;background:#fff8e9;border-radius:8px;color:#7d6035;margin-top:14px}
+.table-viewport{border:1px solid #dce5ed;border-top:0;background:white;overflow:auto;max-height:62vh;min-height:200px;scrollbar-color:#b3c1cf transparent}table{width:max-content;min-width:100%;border-collapse:separate;border-spacing:0;font-size:12px}th{position:sticky;top:0;z-index:2;background:#edf4fa;color:#3d5b77;text-align:left;white-space:nowrap;padding:11px 13px;border-bottom:1px solid #d7e5f0;font-weight:700}th:first-child{left:0;z-index:4}td{padding:11px 13px;border-bottom:1px solid #e9eef4;max-width:280px;vertical-align:top;white-space:nowrap}td:first-child{position:sticky;left:0;z-index:1;background:white}tbody tr:nth-child(even) td{background:#f9fbfd}tbody tr:hover td{background:#edf7ff}td.num{text-align:right;font-variant-numeric:tabular-nums}td.name{min-width:240px;max-width:300px;white-space:normal;color:#165f9f;font-weight:650}td small{display:block;font-size:10px;color:#8090a2;margin-top:3px;white-space:normal}td.name small{display:block;font-size:10px;color:#8090a2;font-weight:400;margin-top:3px}td.sub{white-space:normal;max-width:220px}td.sub small{display:block;font-size:10px;color:#8b9daf}.state{padding:3px 8px;border-radius:6px;font-size:11px;font-weight:700;display:inline-block}.state.on{background:#e7f7ef;color:#08734c}.state.off{background:#eff3f6;color:#697783}.state.neutral{background:#fff4df;color:#8a6534}.empty{padding:42px;text-align:center;color:#68839b;border:1px solid #e1eaf2;background:#fff}.helper{font-size:11px;color:#78889c;margin-top:12px;line-height:1.65}
+.preview-tip{margin:12px 0;background:#fff8e7;border:1px solid #f1dbae;padding:11px;border-radius:8px}.preview-wrap{margin-top:12px}.preview-wrap .table-viewport{border-top:1px solid #dce5ed}.preview-note{font-size:11px;color:#71869a}
+@media(max-width:900px){.shell{padding:14px 12px}.summary{grid-template-columns:1fr 1fr}.top h1{font-size:18px}.filters input{max-width:none}.spacer{display:none}}@media(max-width:600px){.summary{grid-template-columns:1fr}.metric strong{font-size:20px}.account-tabs,.level-tabs{padding:7px}.account-tabs button,.level-tabs button{padding:8px}.table-viewport{max-height:60vh}}@media print{.toolbar,.filters,.langbar,.paging,.preview-tip{display:none!important}.shell{padding:0}.table-viewport{max-height:none;overflow:visible}th{position:static}td:first-child{position:static}}
+
+/* Date-range filters and video performance chart (one reusable HTML file) */
+.date-panel{margin-top:14px;background:white;border:1px solid #dce6ef;border-radius:10px;padding:11px 14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.date-panel .date-heading{font-weight:700;color:#315575;margin-right:6px}.date-actions{display:flex;gap:5px;flex-wrap:wrap}
+.date-actions button{border:1px solid #d5e4f0;border-radius:6px;background:#fff;color:#42617e;padding:7px 10px}
+.date-actions button.active{background:#e9f4ff;border-color:#85b9df;color:#125891;font-weight:700}
+.custom-dates{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.custom-dates label{font-size:11px;color:#526b86}.custom-dates input{width:134px;padding:6px;border:1px solid #d5e3ee;border-radius:6px;background:#fff;color:#284665}
+.date-hint{font-size:11px;color:#58718a;flex-basis:100%;margin:0}
+.trend-panel{background:#fff;border:1px solid #dce6ef;border-top:0;padding:13px 16px;display:none}
+.trend-panel.show{display:block}.trend-head{display:flex;gap:12px;align-items:center;flex-wrap:wrap;justify-content:space-between;margin-bottom:5px}
+.trend-head strong{font-size:14px;color:#214462}.trend-controls{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+.trend-controls select{background:#fff;color:#274c6d;border:1px solid #cbddec;padding:6px 10px;border-radius:7px;max-width:280px}
+.trend-sub{font-size:11px;color:#7b8fa1}.trend-svg{width:100%;height:158px;display:block;overflow:visible}.trend-svg text{font-family:Tahoma,Arial,sans-serif;fill:#6b8298;font-size:10px}
+.metric.featured{display:flex;flex-direction:column}.top-video-card{display:flex;gap:12px;align-items:center;margin-top:8px;min-height:82px}.top-video-thumb{width:124px;min-width:124px;height:70px;border-radius:8px;overflow:hidden;background:#eef3f8;display:flex;align-items:center;justify-content:center}.top-video-img{width:100%;height:100%;object-fit:cover;display:block}.top-video-fallback{font-size:22px;font-weight:800;color:#6a7f95}.top-video-copy{min-width:0}.top-video-rank{display:inline-block;padding:2px 7px;border-radius:999px;background:#e9f4ff;color:#125891;font-weight:800;font-size:11px;margin-bottom:6px}.top-video-copy strong{display:block;font-size:16px;line-height:1.3;margin:0;color:#153b5c;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.top-video-copy small{display:block;color:#7f8f9f;margin-top:2px}.top-video-path{font-size:11px;color:#6b8095;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.top-video-stats{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;color:#35536f;font-size:12px}.top-video-stats b{color:#173b5a}.top-video-empty{margin-top:12px;color:#7b8fa1;font-size:12px}.ranking-panel{background:#fff;border:1px solid #dce6ef;border-top:0;padding:13px 16px;display:none}.ranking-panel.show{display:block}.rank-wrap{overflow:auto}.rank-table{width:100%;min-width:760px;border-collapse:separate;border-spacing:0;font-size:12px}.rank-table th,.rank-table td{padding:10px 12px;border-bottom:1px solid #e8eef4;vertical-align:middle;white-space:nowrap}.rank-table th{background:#f6fafe;color:#3d5b77;text-align:left;font-weight:700;position:static}.rank-media{display:flex;align-items:center;gap:10px;min-width:260px}.rank-thumb{width:72px;height:40px;border-radius:6px;overflow:hidden;background:#eef3f8;display:flex;align-items:center;justify-content:center;flex:none}.rank-thumb img{width:100%;height:100%;object-fit:cover;display:block}.rank-thumb-empty{font-size:14px;color:#70879d;font-weight:700}.rank-name{color:#173b5a;font-weight:700;max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap} .rank-num{font-weight:800;color:#214462}
+/* Per-account ranking follows the selected account, while the executive ranking stays global. */
+.account-rank{margin-top:0;border-top:0;border-radius:0;padding:15px 16px}
+.account-rank .overview-panel-head{margin-bottom:9px}
+.account-rank .rank-wrap{max-height:440px;overflow:auto;border:1px solid #e6edf3;border-radius:7px}
+.account-rank .rank-table{min-width:720px}
+.account-rank .rank-table th{position:sticky;top:0;z-index:1}
+.account-rank .account-label{font-weight:700}
+.account-rank .account-rank-remark{font-size:11px;color:#75899a;margin:3px 0 0}
+
+.video-thumb-click{display:block;position:relative;width:100%;height:100%;border-radius:inherit;overflow:hidden;cursor:pointer}
+.video-thumb-click img{width:100%;height:100%;object-fit:cover}
+.video-thumb-click:hover img{filter:brightness(.76)}
+.video-play-overlay{position:absolute;inset:0;display:flex;justify-content:center;align-items:center;color:white;font-size:21px;text-shadow:0 1px 8px #000e;background:linear-gradient(transparent,#0002)}
+.video-link-name{color:#165f9f;text-decoration:underline;text-underline-offset:2px}
+.video-link-name:hover{color:#083c67}
+.video-thumb-click:focus-visible,.video-link-name:focus-visible,.video-action:focus-visible{outline:3px solid #1479c4;outline-offset:2px}
+.video-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:5px}
+.video-action{display:inline-block;padding:4px 8px;border:1px solid #b7d5e9;border-radius:5px;background:#f0f8ff;font-size:11px;text-decoration:none;color:#0d568f;font-weight:650}
+.video-action.secondary{background:white;border-color:#dce5ee;color:#496581}
+.video-action:hover{background:#dcefff}
+
+.hist-badge{display:inline-block;padding:1px 5px;border-radius:4px;background:#e2f7eb;color:#0c6a40;font-weight:800;font-size:10px}
+.hist-change{display:inline-block;padding:1px 5px;border-radius:4px;background:#fff0d3;color:#915d12;font-size:10px}
+.history-banner{padding:9px 14px;background:#f8fbff;border-bottom:1px solid #e4ecf5;color:#486784;font-size:11px}
+.history-banner.warn{background:#fff8e9;border:1px solid #f2dbac}
+@media(max-width:700px){.date-panel{align-items:flex-start}.date-hint{flex-basis:auto}.trend-head{justify-content:flex-start}.top-video-card{flex-direction:column;align-items:flex-start}.top-video-thumb{width:100%;max-width:220px}.top-video-copy strong{white-space:normal}.rank-table{min-width:620px}}
+
+/* Unified account overview — intentionally uses the existing muted report palette. */
+.summary .metric small{display:block;margin-top:6px;line-height:1.45;white-space:normal}
+.overview-panel{background:#fff;border:1px solid #dce6ef;border-radius:11px;padding:15px 17px;margin-top:14px}
+.overview-panel-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.overview-panel-head strong{font-size:14px;color:#173b5a}
+.overview-panel-head p{margin:3px 0 0;font-size:11px;color:#6f879a}
+.overview-tag{font-size:11px;white-space:nowrap;color:#3c6e88;background:#eff6fa;border:1px solid #dce9f1;border-radius:7px;padding:5px 9px}
+.daily-spend-scroll{overflow:auto;max-height:280px;border:1px solid #e1eaf2;border-radius:8px}
+.daily-spend-table{width:100%;min-width:590px;border-collapse:collapse;font-size:12px}
+.daily-spend-table thead th{position:sticky;top:0;background:#f1f7fa;color:#33566c;padding:10px 13px;z-index:1;border-bottom:1px solid #dce6ed;text-align:right}
+.daily-spend-table thead th:first-child,.daily-spend-table tbody td:first-child{text-align:left;position:static}
+.daily-spend-table tbody td{padding:9px 13px;text-align:right;font-variant-numeric:tabular-nums;border-bottom:1px solid #edf2f7;white-space:nowrap}
+.daily-spend-table tbody tr:last-child td{border-bottom:0}
+.daily-spend-table tbody tr:hover td{background:#f7fbfd}
+.daily-spend-table .daily-total{font-weight:800;color:#153d5d;background:#f1f8fc}
+.overview-note{font-size:11px;color:#58738a;line-height:1.6;margin:10px 0 0}
+.overview-note.has-warning{color:#8c6228}
+.overview-rank{display:none}
+.overview-rank.show{display:block}
+.overview-rank .rank-table{min-width:780px}
+.overview-rank .rank-table th{position:static;background:#f1f7fa}
+.overview-rank .rank-table td{vertical-align:middle;white-space:nowrap}
+.overview-rank .rank-table td.rank-video{white-space:normal}
+.overview-rank .rank-wrap{overflow:auto}
+.overview-rank .rank-num{font-size:14px;color:#176c83}
+.account-label{display:inline-flex;align-items:center;border:1px solid #cfe5ed;background:#eff8fa;color:#246c7e;font-size:11px;font-weight:700;padding:3px 8px;border-radius:20px}
+.overview-rank .rank-name{white-space:normal}
+.overview-rank .rank-muted{display:block;font-size:10px;color:#8193a5;margin:3px 0}
+.overview-rank .trend-controls label{color:#526b86;font-size:11px}
+.overview-rank .trend-controls select{min-width:150px}
+#metric-topvideo-body .account-label{margin-bottom:6px}
+#metric-topvideo-body .top-video-stats{gap:10px}
+@media(max-width:700px){.overview-panel{padding:12px}.overview-panel-head{gap:7px}.overview-tag{white-space:normal}}
+
+
+/* Aquanox-inspired quiet dashboard theme.
+   UI-only override: no changes to metrics, Meta API, links or ranking logic. */
+:root {
+  color-scheme: light;
+  --aq-navy: #173b56;
+  --aq-ocean: #267d8d;
+  --aq-ice: #f4f8fa;
+  --aq-line: #dce8ed;
+  --aq-text: #23384a;
+}
+body {
+  background: var(--aq-ice);
+  color: var(--aq-text);
+  font-size: 14px;
+  line-height: 1.55;
+}
+.shell { max-width: 1780px; padding: 20px 22px 34px; }
+.top h1 { font-size: 23px; letter-spacing: -.45px; color: var(--aq-navy); }
+.overline { color: #53798a; }
+.brand-logo { background: var(--aq-navy); border-radius: 12px; }
+.helper, .date-hint, .overview-note { line-height: 1.65; }
+
+/* Make room for the thumbnail and actions inside the featured video card. */
+.summary {
+  grid-template-columns: minmax(260px,.9fr) minmax(0,1.6fr);
+  grid-template-rows: auto auto;
+  gap: 12px 14px;
+  margin-top: 16px;
+}
+.summary > .metric:first-child { grid-column: 1; grid-row: 1; }
+.summary > .metric:nth-child(2) { grid-column: 1; grid-row: 2; }
+.summary > .metric.featured { grid-column: 2; grid-row: 1 / span 2; }
+.metric, .overview-panel, .date-panel {
+  border: 1px solid var(--aq-line);
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(19,58,74,.025);
+}
+.metric { padding: 16px 18px; }
+.metric p { color: #597687; font-size: 12px; }
+.metric strong { color: var(--aq-navy); font-size: 25px; }
+.metric small { color: #627c8d; font-size: 11px; }
+.top-video-card { gap: 12px; align-items: center; }
+.top-video-thumb { width: 134px; min-width: 134px; height: 78px; }
+.top-video-stats { gap: 8px 12px; line-height: 1.35; }
+.top-video-copy strong { color: var(--aq-navy); }
+
+/* Calmer active tabs and clearer focus rings. */
+a, .video-link-name { color: #176780; }
+a:hover, .video-link-name:hover { color: #10495a; }
+.account-tabs button.active, .level-tabs button.active,
+.date-actions button.active {
+  color: #145d70;
+  background: #eaf5f6;
+  border-color: #b4d5da;
+}
+.account-tabs, .filters { background: #f9fcfd; }
+.account-tabs button, .level-tabs button { font-size: 13px; }
+.date-actions button, .custom-dates input, .filters input, .filters select {
+  border-color: #d3e3e9;
+}
+.date-actions button:focus-visible, .custom-dates input:focus-visible,
+.filters input:focus-visible, .filters select:focus-visible,
+.account-tabs button:focus-visible, .level-tabs button:focus-visible,
+.video-action:focus-visible {
+  outline: 2px solid var(--aq-ocean);
+  outline-offset: 2px;
+}
+.video-action { padding: 4px 7px; border-color: #bfd7de; background: #f3f9fa; color: #1e6576; }
+.video-action.secondary { background: #fff; border-color: var(--aq-line); color: #4a6876; }
+.video-actions { gap: 5px; }
+.account-label { background: #edf7f8; border-color: #c8e2e6; color: #226a78; }
+
+/* Readability: lean data tables, aligned figures and softer row striping. */
+.overview-panel-head strong, .trend-head strong { font-size: 15px; color: var(--aq-navy); }
+.rank-table, .daily-spend-table, .table-viewport table { font-size: 13px; }
+.rank-table th, .daily-spend-table thead th, .table-viewport th {
+  background: #edf4f6;
+  color: #315267;
+  font-size: 12px;
+}
+.rank-table td, .table-viewport td { padding-top: 10px; padding-bottom: 10px; }
+.rank-table tbody tr:nth-child(even) td, .table-viewport tbody tr:nth-child(even) td { background: #f8fbfc; }
+.rank-table tbody tr:hover td, .table-viewport tbody tr:hover td { background: #edf6f8; }
+.rank-table td.num, .daily-spend-table tbody td, .table-viewport td.num { font-variant-numeric: tabular-nums; }
+.rank-name { color: var(--aq-navy); }
+.daily-spend-table .daily-total { color: var(--aq-navy); background: #edf6f8; }
+
+/* A data-quality notice should be visible without looking like an error. */
+.overview-note.has-warning {
+  color: #7d602d;
+  background: #fffaf0;
+  border-left: 3px solid #c89b4a;
+  border-radius: 4px;
+  padding: 8px 10px;
+}
+
+@media (max-width: 1050px) {
+  .summary { grid-template-columns: repeat(2,minmax(0,1fr)); grid-template-rows: auto auto; }
+  .summary > .metric:first-child { grid-column: 1; grid-row: 1; }
+  .summary > .metric:nth-child(2) { grid-column: 2; grid-row: 1; }
+  .summary > .metric.featured { grid-column: 1 / -1; grid-row: 2; }
+}
+@media (max-width: 650px) {
+  .shell { padding: 14px 12px 26px; }
+  .top h1 { font-size: 20px; }
+  .summary { grid-template-columns: 1fr; grid-template-rows: auto auto auto; }
+  .summary > .metric:first-child { grid-column: 1; grid-row: 1; }
+  .summary > .metric:nth-child(2) { grid-column: 1; grid-row: 2; }
+  .summary > .metric.featured { grid-column: 1; grid-row: 3; }
+  .top-video-thumb { width: 100%; max-width: 220px; min-width: 0; }
+}
+
+</style></head><body><div class="shell"><div class="top"><div class="brand"><div class="brand-logo">M</div><div><div class="overline">Wavepool Party · AFCL / Shopee / Lazada</div><h1 id="title">Wavepool Party · Daily Ads Monitor</h1></div></div><div class="top-right"><div id="period" class="chip">Reporting period: 2026-11-10 – 2026-11-11</div><div class="langbar"><button id="lang-en" class="selected">English</button><button id="lang-th">ภาษาไทย</button></div></div></div><div id="generated" class="helper">Generated: 2026-11-11T06:48:58.877Z</div><div class="date-panel" id="date-panel"><span id="date-heading" class="date-heading">Historical view</span><div class="date-actions"><button type="button" data-preset="project" class="active">Project to date</button><button type="button" data-preset="today">Today (snapshot)</button><button type="button" data-preset="yesterday">Yesterday</button><button type="button" data-preset="week">Last 7 days</button><button type="button" data-preset="custom">Custom</button></div><div class="custom-dates"><label id="from-label" for="date-from">From</label><input type="date" id="date-from" aria-label="Date from"/><label id="to-label" for="date-to">To</label><input type="date" id="date-to" aria-label="Date to"/></div><p id="date-hint" class="date-hint">Daily rows are read from this saved report; selecting dates does not query Meta again.</p></div><div id="static-preview"><div class="preview-wrap"><div class="preview-tip">Interactive account tabs, level switches, search and pagination are available after opening the downloaded HTML file in a browser. This n8n preview is a static first-page sample.</div><div class="table-viewport"><table><thead><tr><th>On / Off</th><th>Campaign name</th><th>Delivery (API)</th><th>Actions / recommendations</th><th>Attribution setting</th><th>Results</th><th>Cost per result</th><th>Budget</th><th>Amount spent</th><th>Impressions</th><th>Reach</th><th>Frequency</th><th>Unique link clicks</th><th>Ends</th><th>Bid strategy</th><th>Purchase ROAS</th></tr></thead><tbody><tr><td><span class="state on">On</span></td><td><b>Wavepool Party</b><small>120252810239600203</small></td><td>เปิดตาม API</td><td>ไม่มีข้อมูลคำแนะนำจาก API</td><td>คลิก 1 วัน</td><td>420</td><td>THB 1.27</td><td>฿500.00 รายวัน</td><td>THB 535.14</td><td>17,058</td><td>15,207</td><td>—</td><td>—</td><td>2026-12-09T00:00:00+0700</td><td>—</td><td>—</td></tr></tbody></table></div><p class="preview-note">Showing 1 of 1 campaigns in static preview; open the downloaded HTML for pagination.</p></div></div><div id="dashboard" hidden><div class="summary"><div class="metric"><p id="metric-count-label">Items</p><strong id="metric-count">—</strong><small id="metric-count-small"></small></div><div class="metric"><p id="metric-spend-label">Amount spent</p><strong id="metric-spend">—</strong><small id="metric-spend-small"></small></div><div class="metric featured"><p id="metric-topvideo-label">Top video</p><div id="metric-topvideo-body"></div></div></div><section id="daily-spend-panel" class="overview-panel" aria-label="Daily spend across AFCL Shopee Lazada"><div class="overview-panel-head"><div><strong id="daily-spend-title">Daily amount spent · All accounts</strong><p id="daily-spend-sub">Campaign-level Insights, by date</p></div><span id="daily-spend-range" class="overview-tag">AFCL + Shopee + Lazada</span></div><div class="daily-spend-scroll"><table class="daily-spend-table"><thead id="daily-spend-head"></thead><tbody id="daily-spend-body"></tbody></table></div><p id="daily-spend-note" class="overview-note"></p></section><section id="ranking-panel" class="overview-panel overview-rank" aria-label="Combined video ranking across all ad accounts"><div class="overview-panel-head"><div><strong id="ranking-title">All-account video ranking · Video plays</strong><p id="ranking-sub">Individual ads, compared across AFCL, Shopee and Lazada</p></div><div class="trend-controls"><label id="rank-sort-label" for="ranking-metric">Rank by</label><select id="ranking-metric" aria-label="Video ranking metric"><option value="videoPlays">Video plays</option><option value="unique">Unique link clicks</option><option value="thruplays">ThruPlay</option></select></div></div><div id="ranking-body"></div></section><div class="toolbar"><div class="account-tabs" id="acc-tabs"></div><div class="level-tabs" id="level-tabs"></div><div class="filters"><input id="search" aria-label="Search" placeholder="Search by name or ID"><label id="sort-label" for="sort-by">Sort by</label><select id="sort-by"><option value="name">Name</option><option value="spendDesc">Highest spend</option><option value="spendAsc">Lowest spend</option></select><div class="spacer"></div><label id="size-label" for="size">Rows / page</label><select id="size"><option value="50">50</option><option value="100">100</option><option value="200">200</option></select><div class="paging"><button id="back">‹</button><span id="page-text">—</span><button id="forward">›</button></div></div></div><div id="history-banner" class="history-banner"></div><section id="account-ranking-panel" class="overview-panel account-rank" aria-label="Video ranking for selected ad account"><div class="overview-panel-head"><div><strong id="account-ranking-title">Video ranking · AFCL</strong><p id="account-ranking-sub">Individual video ads in the selected account, ranked by unique link clicks</p></div><div class="trend-controls"><label id="account-rank-sort-label" for="account-ranking-metric">Rank by</label><select id="account-ranking-metric" aria-label="Selected account video ranking metric"><option value="unique">Unique link clicks</option><option value="videoPlays">Video plays</option><option value="thruplays">ThruPlay</option></select></div></div><div id="account-ranking-body"></div><p id="account-ranking-note" class="account-rank-remark"></p></section><section id="trend-panel" class="trend-panel" aria-label="Video performance over time"><div class="trend-head"><strong id="trend-title">Video performance over time</strong><div class="trend-controls"><select id="trend-ad" aria-label="Video ad"></select><select id="trend-metric" aria-label="Video metric"><option value="videoPlays">Video plays</option><option value="thruplays">ThruPlay</option><option value="fullViews">100% views</option><option value="spend">Amount spent</option><option value="uniqueInline">Unique inline link clicks</option></select></div></div><p id="trend-sub" class="trend-sub"></p><svg id="trend-svg" class="trend-svg" role="img" aria-label="Daily video performance trend" viewBox="0 0 900 160" preserveAspectRatio="none"></svg></section><div id="missing" class="empty" hidden></div><div id="table-box" class="table-viewport" role="region" aria-label="Report table" tabindex="0"><table><thead id="table-header"></thead><tbody id="table-body"></tbody></table></div><div class="note" id="footnote"></div></div><div class="helper">Data is read-only. No changes to Meta campaigns, budgets or ads are made by this report. Current switch/budget snapshot and historical period metrics have different time references.</div></div><script type="application/json" id="meta-report-data">{"accounts":[{"label":"AFCL","name":"Aquaverse - Afcl","id":"act_226596829784991","currency":"THB","timezone":"Asia/Bangkok","warnings":1,"campaign":[{"level":"campaign","id":"120252810239600203","name":"Wavepool Party","status":"ACTIVE","delivery":"เปิดตาม API","effective":"ACTIVE","deliveryBasis":"campaign.status = ACTIVE; ไม่ยืนยันว่ากำลังส่งโฆษณาหรือมีการใช้จ่ายขณะนี้","recommendations":"ไม่มีข้อมูลคำแนะนำจาก API","attribution":"คลิก 1 วัน","result":420,"resultLabel":"การเข้าชมหน้าเว็บไซต์","cost":1.274143,"budget":"฿500.00 รายวัน","spend":535.14,"impressions":17058,"reach":15207,"frequency":null,"unique":null,"ends":"2026-12-09T00:00:00+0700","start":"2026-11-10T09:50:02+0700","bid":"","roas":null,"type":"OUTCOME_TRAFFIC","insightStatus":"insights_returned","warnings":0,"campaign":"Wavepool Party","campaignId":"120252810239600203","daily":[{"date":"2026-11-10","spend":395.57,"impressions":12368,"reach":11250,"uniqueInline":null},{"date":"2026-11-11","spend":139.57,"impressions":4690,"reach":4324,"uniqueInline":null}]}],"adset":[{"level":"adset","id":"120252810239610203","name":"Foreign Audience","status":"ACTIVE","delivery":"On (delivery not confirmed)","effective":"ACTIVE","deliveryBasis":"status=ACTIVE; effective_status=ACTIVE","attribution":"คลิก 1 วัน","optimization":"LANDING_PAGE_VIEWS","result":420,"resultLabel":"การเข้าชมหน้าเว็บไซต์","cost":1.274143,"budget":"Parent campaign: THB 500.00 per day","spend":535.14,"impressions":17058,"reach":15207,"frequency":1.12172,"unique":709,"ends":"2026-12-09T00:00:00+0700","start":"2026-11-10T09:50:02+0700","updated":"","bid":"","campaign":"Wavepool Party","campaignId":"120252810239600203","insightStatus":"insights_returned","warnings":0,"daily":[{"date":"2026-11-10","spend":395.57,"impressions":12368,"reach":11250,"uniqueInline":null},{"date":"2026-11-11","spend":139.57,"impressions":4690,"reach":4324,"uniqueInline":null}]}],"ad":[{"level":"ad","id":"120252810239620203","name":"Video 1","status":"ACTIVE","delivery":"On (delivery not confirmed)","effective":"ACTIVE","deliveryBasis":"status=ACTIVE; effective_status=ACTIVE","result":420,"resultLabel":"การเข้าชมหน้าเว็บไซต์","cost":1.274143,"budget":"Parent campaign: THB 500.00 per day","spend":535.14,"impressions":17058,"reach":15207,"frequency":1.12172,"unique":709,"ends":"2026-12-09T00:00:00+0700","start":"2026-11-10T09:50:02+0700","quality":"UNKNOWN","engagement":"UNKNOWN","conversion":"UNKNOWN","campaign":"Wavepool Party","campaignId":"120252810239600203","adset":"Foreign Audience","adsetId":"120252810239610203","media":"video","videoId":"1083628197971981","previewUrl":"https://fb.me/1X4tJUZQKI7XrOv","instagramUrl":"","storyId":"1715144052121109_1592734099563725","thumbnail":"https://scontent-fra3-1.xx.fbcdn.net/v/t15.5256-10/896518312_1083628224638645_6560429568168894475_n.jpg?_nc_cat=103\u0026ccb=1-7\u0026_nc_ohc=au8EuSf_GLEQ7kNvwF38iHy\u0026_nc_oc=AdpO4zT9AX4yOD8lbVJhFLK1lBoMviKkZsHYIHmxmEmGT76SxytXsTJmWBGoKg-IH2I\u0026_nc_zt=23\u0026_nc_ht=scontent-fra3-1.xx\u0026edm=ACTJxZ4EAAAA\u0026_nc_gid=iCbS88u2IlxajWDuHQUx_Q\u0026_nc_tpa=Q5bMBQJ3yOZwH2Iit8sq4X92PilQJ7t8kn_rDm4CprD2iF_LLc-gWrqs7N4X9T0__IFdOPIJLTzwhkTW\u0026stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6\u0026ur=d2b52d\u0026_nc_sid=58080a\u0026oh=00_AQTvtnUPLXA96C5AZS3uHr5lcv_ZdaFLNJy3gQdSOWNlnw\u0026oe=6AF9CAD6","created":"2026-11-10","createdInPeriod":true,"videoPlays":8060,"thruplays":329,"fullViews":180,"completionRate":2.2332506203473943,"costThruplay":1.6265653495440728,"daily":[{"date":"2026-11-10","spend":395.57,"impressions":12368,"reach":11250,"uniqueInline":527,"videoPlays":6028,"thruplays":252,"fullViews":125},{"date":"2026-11-11","spend":138.93,"impressions":4671,"reach":4324,"uniqueInline":194,"videoPlays":2032,"thruplays":77,"fullViews":55}],"firstSeen":"2026-11-11T06:48:58.877Z","isNew":false,"isBaseline":true,"statusChanged":false,"creativeChanged":false,"previousStatus":"","insightStatus":"insights_returned","warnings":0}]},{"label":"Shopee","name":"Aquaverse - Shopee","id":"act_361111020178368","currency":"THB","timezone":"Asia/Bangkok","warnings":1,"campaign":[{"level":"campaign","id":"120250713463910447","name":"Wavepool Party","status":"ACTIVE","delivery":"เปิดตาม API","effective":"ACTIVE","deliveryBasis":"campaign.status = ACTIVE; ไม่ยืนยันว่ากำลังส่งโฆษณาหรือมีการใช้จ่ายขณะนี้","recommendations":"ไม่มีข้อมูลคำแนะนำจาก API","attribution":"คลิก 7 วัน + ดู 1 วัน + ดูวิดีโอแบบมีส่วนร่วม 1 วัน","result":null,"resultLabel":"ต้องกำหนดชนิดผลลัพธ์","cost":null,"budget":"฿700.00 รายวัน","spend":1198.64,"impressions":33384,"reach":23368,"frequency":null,"unique":null,"ends":"2026-11-30T00:00:00+0700","start":"2026-11-10T09:43:50+0700","bid":"","roas":null,"type":"OUTCOME_SALES","insightStatus":"insights_returned","warnings":0,"campaign":"Wavepool Party","campaignId":"120250713463910447","daily":[{"date":"2026-11-10","spend":621.04,"impressions":16257,"reach":13637,"uniqueInline":null},{"date":"2026-11-11","spend":578.13,"impressions":17142,"reach":11317,"uniqueInline":null}]}],"adset":[{"level":"adset","id":"120250713463900447","name":"Thai Audience","status":"ACTIVE","delivery":"On (delivery not confirmed)","effective":"ACTIVE","deliveryBasis":"status=ACTIVE; effective_status=ACTIVE","attribution":"คลิก 7 วัน + ดู 1 วัน + ดูวิดีโอแบบมีส่วนร่วม 1 วัน","optimization":"OFFSITE_CONVERSIONS","result":null,"resultLabel":"ต้องกำหนดชนิดผลลัพธ์","cost":null,"budget":"Parent campaign: THB 700.00 per day","spend":1199.17,"impressions":33399,"reach":23360,"frequency":1.429752,"unique":164,"ends":"2026-11-30T00:00:00+0700","start":"2026-11-10T09:43:50+0700","updated":"","bid":"","campaign":"Wavepool Party","campaignId":"120250713463910447","insightStatus":"insights_returned","warnings":0,"daily":[{"date":"2026-11-10","spend":621.04,"impressions":16257,"reach":13637,"uniqueInline":null},{"date":"2026-11-11","spend":578.13,"impressions":17142,"reach":11317,"uniqueInline":null}]}],"ad":[{"level":"ad","id":"120250713552370447","name":"Video 2","status":"ACTIVE","delivery":"On (delivery not confirmed)","effective":"ACTIVE","deliveryBasis":"status=ACTIVE; effective_status=ACTIVE","result":null,"resultLabel":"ต้องกำหนดชนิดผลลัพธ์","cost":null,"budget":"Parent campaign: THB 700.00 per day","spend":561.89,"impressions":13314,"reach":9930,"frequency":1.340786,"unique":104,"ends":"2026-11-30T00:00:00+0700","start":"2026-11-10T09:43:50+0700","quality":"UNKNOWN","engagement":"UNKNOWN","conversion":"UNKNOWN","campaign":"Wavepool Party","campaignId":"120250713463910447","adset":"Thai Audience","adsetId":"120250713463900447","media":"video","videoId":"2445438052526524","previewUrl":"https://fb.me/1WN0Jmp71eWnu9S","instagramUrl":"","storyId":"1715144052121109_1592673496236452","thumbnail":"https://scontent-fra5-1.xx.fbcdn.net/v/t15.5256-10/901150042_953215940945003_3513021283564463503_n.jpg?_nc_cat=110\u0026ccb=1-7\u0026_nc_ohc=qqJ_j8xabJIQ7kNvwGLLC3z\u0026_nc_oc=AdpwNhqWKuGZKKUjRs5bkMNHU96Cc1PSC26t95TCEXL4RbuMa43AqXqIxkLP7ISs5HU\u0026_nc_zt=23\u0026_nc_ht=scontent-fra5-1.xx\u0026edm=ACTJxZ4EAAAA\u0026_nc_gid=W_g5p8sLFLOFv9DUwWB43Q\u0026_nc_tpa=Q5bMBQIwwvrQyhvhUUkqheWgKJGujvVWEN8Ew4BLvTLicZQND_JIyuBAUlNDsG9xQdTaOMgIkvjGuX6q\u0026stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6\u0026ur=5fad0e\u0026_nc_sid=58080a\u0026oh=00_AQROQIpiEgCLj_04IND05IB-KRXjKQReHlaaqLPVLp-fpQ\u0026oe=6AF9D34B","created":"2026-11-10","createdInPeriod":true,"videoPlays":10090,"thruplays":209,"fullViews":131,"completionRate":1.298315163528246,"costThruplay":2.688468899521531,"daily":[{"date":"2026-11-10","spend":328.73,"impressions":8326,"reach":6960,"uniqueInline":52,"videoPlays":6690,"thruplays":129,"fullViews":74},{"date":"2026-11-11","spend":232.87,"impressions":4982,"reach":3673,"uniqueInline":50,"videoPlays":3400,"thruplays":80,"fullViews":57}],"firstSeen":"2026-11-11T06:48:58.877Z","isNew":false,"isBaseline":true,"statusChanged":false,"creativeChanged":false,"previousStatus":"","insightStatus":"insights_returned","warnings":0},{"level":"ad","id":"120250713463920447","name":"Video 1","status":"ACTIVE","delivery":"On (delivery not confirmed)","effective":"ACTIVE","deliveryBasis":"status=ACTIVE; effective_status=ACTIVE","result":null,"resultLabel":"ต้องกำหนดชนิดผลลัพธ์","cost":null,"budget":"Parent campaign: THB 700.00 per day","spend":637.28,"impressions":20085,"reach":14858,"frequency":1.351797,"unique":60,"ends":"2026-11-30T00:00:00+0700","start":"2026-11-10T09:43:50+0700","quality":"UNKNOWN","engagement":"UNKNOWN","conversion":"UNKNOWN","campaign":"Wavepool Party","campaignId":"120250713463910447","adset":"Thai Audience","adsetId":"120250713463900447","media":"video","videoId":"954996257468306","previewUrl":"https://fb.me/29ivIpvam6MjRSG","instagramUrl":"https://www.instagram.com/p/DfjAe8KMOxZ/","storyId":"1715144052121109_1592672746236527","thumbnail":"https://scontent-fra3-1.xx.fbcdn.net/v/t15.5256-10/899699416_2593842401092883_157603930336433323_n.jpg?_nc_cat=106\u0026ccb=1-7\u0026_nc_ohc=SA_OZF8dwOgQ7kNvwFYwbwi\u0026_nc_oc=AdqBvV2iGQ59BfjuhM1IM3f00FIjT1Z1gry0bY_vJpEvZJEwfzVNlbRrni8p8tIt01A\u0026_nc_zt=23\u0026_nc_ht=scontent-fra3-1.xx\u0026edm=ACTJxZ4EAAAA\u0026_nc_gid=W_g5p8sLFLOFv9DUwWB43Q\u0026_nc_tpa=Q5bMBQKk4lcXiebnc23UYBHDbq18n4qGx3zOJfDOiu2oofaQensRmDdeJ6-AFM4bT7ar9n6-RamIc5CL\u0026stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6\u0026ur=5fad0e\u0026_nc_sid=58080a\u0026oh=00_AQR8RCCWi6O3y51wZFNdRa9vE5u62qchFTz5wwXvlwtqIg\u0026oe=6AF9E1C3","created":"2026-11-10","createdInPeriod":true,"videoPlays":15582,"thruplays":374,"fullViews":369,"completionRate":2.3681170581440125,"costThruplay":1.7039572192513368,"daily":[{"date":"2026-11-10","spend":292.31,"impressions":7931,"reach":6986,"uniqueInline":34,"videoPlays":6427,"thruplays":159,"fullViews":157},{"date":"2026-11-11","spend":344.73,"impressions":12145,"reach":8455,"uniqueInline":25,"videoPlays":9155,"thruplays":215,"fullViews":212}],"firstSeen":"2026-11-11T06:48:58.877Z","isNew":false,"isBaseline":true,"statusChanged":false,"creativeChanged":false,"previousStatus":"","insightStatus":"insights_returned","warnings":0}]},{"label":"Lazada","name":"Aquaverse - Lazada","id":"act_396807189793877","currency":"THB","timezone":"Asia/Bangkok","warnings":1,"campaign":[{"level":"campaign","id":"120250873397340764","name":"Wavepool Party","status":"ACTIVE","delivery":"เปิดตาม API","effective":"ACTIVE","deliveryBasis":"campaign.status = ACTIVE; ไม่ยืนยันว่ากำลังส่งโฆษณาหรือมีการใช้จ่ายขณะนี้","recommendations":"ไม่มีข้อมูลคำแนะนำจาก API","attribution":"คลิก 1 วัน","result":3269,"resultLabel":"การเข้าชมหน้าเว็บไซต์","cost":0.260997,"budget":"฿750.00 รายวัน","spend":853.2,"impressions":28408,"reach":17823,"frequency":null,"unique":null,"ends":"","start":"2026-11-10T09:38:10+0700","bid":"","roas":null,"type":"OUTCOME_SALES","insightStatus":"insights_returned","warnings":0,"campaign":"Wavepool Party","campaignId":"120250873397340764","daily":[{"date":"2026-11-10","spend":533.23,"impressions":19220,"reach":13168,"uniqueInline":null},{"date":"2026-11-11","spend":319.97,"impressions":9188,"reach":6571,"uniqueInline":null}]}],"adset":[{"level":"adset","id":"120250873397320764","name":"Thai Audience","status":"ACTIVE","delivery":"On (delivery not confirmed)","effective":"ACTIVE","deliveryBasis":"status=ACTIVE; effective_status=ACTIVE","attribution":"คลิก 1 วัน","optimization":"LANDING_PAGE_VIEWS","result":3259,"resultLabel":"การเข้าชมหน้าเว็บไซต์","cost":0.261798,"budget":"Parent campaign: THB 750.00 per day","spend":853.2,"impressions":28408,"reach":17848,"frequency":1.591663,"unique":4273,"ends":"","start":"2026-11-10T09:38:10+0700","updated":"","bid":"","campaign":"Wavepool Party","campaignId":"120250873397340764","insightStatus":"insights_returned","warnings":0,"daily":[{"date":"2026-11-10","spend":533.23,"impressions":19220,"reach":13168,"uniqueInline":null},{"date":"2026-11-11","spend":321.58,"impressions":9240,"reach":6571,"uniqueInline":null}]}],"ad":[{"level":"ad","id":"120250873490060764","name":"Video 2","status":"ACTIVE","delivery":"On (delivery not confirmed)","effective":"ACTIVE","deliveryBasis":"status=ACTIVE; effective_status=ACTIVE","result":394,"resultLabel":"การเข้าชมหน้าเว็บไซต์","cost":0.325228,"budget":"Parent campaign: THB 750.00 per day","spend":128.14,"impressions":3330,"reach":2624,"frequency":1.269055,"unique":552,"ends":"","start":"2026-11-10T09:38:10+0700","quality":"UNKNOWN","engagement":"UNKNOWN","conversion":"UNKNOWN","campaign":"Wavepool Party","campaignId":"120250873397340764","adset":"Thai Audience","adsetId":"120250873397320764","media":"video","videoId":"","previewUrl":"https://fb.me/2tfvwPji6oMY82p","instagramUrl":"","storyId":"1715144052121109_1592670416236760","thumbnail":"https://scontent-fra5-1.xx.fbcdn.net/v/t15.5256-10/901150042_953215940945003_3513021283564463503_n.jpg?_nc_cat=110\u0026ccb=1-7\u0026_nc_ohc=qqJ_j8xabJIQ7kNvwGLLC3z\u0026_nc_oc=AdpwNhqWKuGZKKUjRs5bkMNHU96Cc1PSC26t95TCEXL4RbuMa43AqXqIxkLP7ISs5HU\u0026_nc_zt=23\u0026_nc_ht=scontent-fra5-1.xx\u0026edm=ACTJxZ4EAAAA\u0026_nc_gid=5XNKQTmgAcALGNYcax7a-w\u0026_nc_tpa=Q5bMBQKeqlpJc6P-VRevxwfq5kKZF9iNJwkkLWGkd-1iaQdY0wqHMfrInIIAekDesiH11pFxg9tXlbXp\u0026stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6\u0026ur=a86139\u0026_nc_sid=58080a\u0026oh=00_AQSYukSjuj2mATpVI5iniQoDtqHi3-0EbOuP64hHdgTWQQ\u0026oe=6AF9D34B","created":"2026-11-10","createdInPeriod":true,"videoPlays":2406,"thruplays":23,"fullViews":13,"completionRate":0.5403158769742311,"costThruplay":5.571304347826087,"daily":[{"date":"2026-11-10","spend":32.41,"impressions":689,"reach":611,"uniqueInline":115,"videoPlays":498,"thruplays":null,"fullViews":null},{"date":"2026-11-11","spend":95.02,"impressions":2623,"reach":2066,"uniqueInline":445,"videoPlays":1908,"thruplays":23,"fullViews":13}],"firstSeen":"2026-11-11T06:48:58.877Z","isNew":false,"isBaseline":true,"statusChanged":false,"creativeChanged":false,"previousStatus":"","insightStatus":"insights_returned","warnings":0},{"level":"ad","id":"120250873397330764","name":"Video 1","status":"ACTIVE","delivery":"On (delivery not confirmed)","effective":"ACTIVE","deliveryBasis":"status=ACTIVE; effective_status=ACTIVE","result":2875,"resultLabel":"การเข้าชมหน้าเว็บไซต์","cost":0.252195,"budget":"Parent campaign: THB 750.00 per day","spend":725.06,"impressions":25078,"reach":16214,"frequency":1.546688,"unique":3812,"ends":"","start":"2026-11-10T09:38:10+0700","quality":"UNKNOWN","engagement":"UNKNOWN","conversion":"UNKNOWN","campaign":"Wavepool Party","campaignId":"120250873397340764","adset":"Thai Audience","adsetId":"120250873397320764","media":"video","videoId":"","previewUrl":"https://fb.me/23CC0JRIPUCGjep","instagramUrl":"","storyId":"1715144052121109_1592668679570267","thumbnail":"https://scontent-fra3-1.xx.fbcdn.net/v/t15.5256-10/899699416_2593842401092883_157603930336433323_n.jpg?_nc_cat=106\u0026ccb=1-7\u0026_nc_ohc=SA_OZF8dwOgQ7kNvwFYwbwi\u0026_nc_oc=AdqBvV2iGQ59BfjuhM1IM3f00FIjT1Z1gry0bY_vJpEvZJEwfzVNlbRrni8p8tIt01A\u0026_nc_zt=23\u0026_nc_ht=scontent-fra3-1.xx\u0026edm=ACTJxZ4EAAAA\u0026_nc_gid=5XNKQTmgAcALGNYcax7a-w\u0026_nc_tpa=Q5bMBQICkp4FyBy_xreINt_Q_lN0bisCoFZ7Cbrzz8hh6g1NiAC1PyqzcnYQN-rQzxRKWbmsI-FrNy1d\u0026stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6\u0026ur=a86139\u0026_nc_sid=58080a\u0026oh=00_AQSK98hLQxR5PjmbeW1GEuhSlf6uvgfQRruvt5-ItoxfKg\u0026oe=6AF9E1C3","created":"2026-11-10","createdInPeriod":true,"videoPlays":17855,"thruplays":173,"fullViews":102,"completionRate":0.5712685522262672,"costThruplay":4.1910982658959535,"daily":[{"date":"2026-11-10","spend":500.8,"impressions":18530,"reach":12696,"uniqueInline":2808,"videoPlays":13207,"thruplays":127,"fullViews":73},{"date":"2026-11-11","spend":222.91,"impressions":6508,"reach":4857,"uniqueInline":1088,"videoPlays":4648,"thruplays":46,"fullViews":29}],"firstSeen":"2026-11-11T06:48:58.877Z","isNew":false,"isBaseline":true,"statusChanged":false,"creativeChanged":false,"previousStatus":"","insightStatus":"insights_returned","warnings":0},{"level":"ad","id":"120250873491230764","name":"Carousel","status":"PAUSED","delivery":"Off","effective":"PAUSED","deliveryBasis":"Object status PAUSED","result":null,"resultLabel":"ไม่มีข้อมูลผลลัพธ์ในช่วงวันที่","cost":null,"budget":"Parent campaign: THB 750.00 per day","spend":null,"impressions":null,"reach":null,"frequency":null,"unique":null,"ends":"","start":"2026-11-10T09:38:10+0700","quality":"","engagement":"","conversion":"","campaign":"Wavepool Party","campaignId":"120250873397340764","adset":"Thai Audience","adsetId":"120250873397320764","media":"unverified","videoId":"","previewUrl":"https://fb.me/24b06nA71w4Zfjp","instagramUrl":"","storyId":"1715144052121109_1592667196237082","thumbnail":"https://scontent-fra3-2.xx.fbcdn.net/v/t39.2147-6/75341531_494485104475166_2751028116179648512_n.png?_nc_cat=1\u0026ccb=1-7\u0026_nc_ohc=RK1OdDP_iyMQ7kNvwFV_8wO\u0026_nc_oc=Ado0C7VVpoODAjMXn9fzeApcnewiG_YJWjUlTh6B3xx09yAghqeHWxBL6LD6ZEu4S7E\u0026_nc_zt=14\u0026_nc_ht=scontent-fra3-2.xx\u0026edm=ACTJxZ4EAAAA\u0026_nc_gid=5XNKQTmgAcALGNYcax7a-w\u0026_nc_tpa=Q5bMBQLgxzZdN_LRlY2kmCbxPGUygljRgbmwkJfr70zz3knYymSUQ5_H_pzq1H27IBEIM_1ECeT8c4PM\u0026stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6\u0026ur=39b8c1\u0026_nc_sid=58080a\u0026oh=00_AQTfbT48SVgzwpTmEy2w80S5WCe0eZezi8VNm9IRapIrgg\u0026oe=6AF9F5C4","created":"2026-11-10","createdInPeriod":true,"videoPlays":null,"thruplays":null,"fullViews":null,"completionRate":null,"costThruplay":null,"daily":[],"firstSeen":"2026-11-11T06:48:58.877Z","isNew":false,"isBaseline":true,"statusChanged":false,"creativeChanged":false,"previousStatus":"","insightStatus":"no_insights_in_period","warnings":1}]}],"configured":[],"accountTabs":["AFCL","Shopee","Lazada"],"period":{"since":"2026-11-10","until":"2026-11-11","partial_today":true},"generated":"2026-11-11T06:48:58.877Z","history":{"store_ready":true,"table_name":"Wavepool Party Daily History","previous_ad_records":0,"baseline_run":true,"new_detected":0,"changed_detected":0,"note":"First history comparison: existing ads are baseline, not newly detected. Confirm that node 16 saves successfully."},"warningCount":3,"schemas":{"campaign":[["status","On / Off","ปิด / เปิด"],["name","Campaign name","ชื่อแคมเปญ"],["delivery","Delivery (API)","การแสดงโฆษณา (API)"],["recommendations","Actions / recommendations","การดำเนินการ / คำแนะนำ"],["attribution","Attribution setting","การตั้งค่าการระบุที่มา"],["result","Results","ผลลัพธ์"],["cost","Cost per result","ต้นทุนต่อผลลัพธ์"],["budget","Budget","งบประมาณ"],["spend","Amount spent","จำนวนเงินที่ใช้ไป"],["impressions","Impressions","อิมเพรสชัน"],["reach","Reach","การเข้าถึง"],["frequency","Frequency","ความถี่"],["unique","Unique link clicks","คลิกลิงก์ที่ไม่ซ้ำกัน"],["ends","Ends","สิ้นสุด"],["bid","Bid strategy","กลยุทธ์การประมูล"],["roas","Purchase ROAS","ROAS การซื้อ"]],"adset":[["status","On / Off","ปิด / เปิด"],["name","Ad set name","ชื่อชุดโฆษณา"],["campaign","Campaign","แคมเปญ"],["delivery","Delivery (API)","การแสดงโฆษณา (API)"],["attribution","Attribution setting","การตั้งค่าการระบุที่มา"],["optimization","Optimization goal","เป้าหมายการปรับให้เหมาะสม"],["result","Results","ผลลัพธ์"],["cost","Cost per result","ต้นทุนต่อผลลัพธ์"],["budget","Budget / source","งบประมาณ / แหล่งงบ"],["spend","Amount spent","จำนวนเงินที่ใช้ไป"],["impressions","Impressions","อิมเพรสชัน"],["reach","Reach","การเข้าถึง"],["frequency","Frequency","ความถี่"],["unique","Unique link clicks","คลิกลิงก์ที่ไม่ซ้ำกัน"],["schedule","Schedule","กำหนดเวลา"],["ends","Ends","สิ้นสุด"],["bid","Bid strategy","กลยุทธ์การประมูล"],["updated","Last edit (API)","แก้ไขล่าสุด (API)"]],"ad":[["status","On / Off","ปิด / เปิด"],["name","Ad name / thumbnail","ชื่อโฆษณา / รูปย่อ"],["media","Creative type","ประเภทสื่อ"],["created","Created","วันที่สร้าง"],["adset","Ad set","ชุดโฆษณา"],["campaign","Campaign","แคมเปญ"],["delivery","Delivery (API)","การแสดงโฆษณา (API)"],["result","Results","ผลลัพธ์"],["cost","Cost per result","ต้นทุนต่อผลลัพธ์"],["budget","Budget / source","งบประมาณ / แหล่งงบ"],["spend","Amount spent","จำนวนเงินที่ใช้ไป"],["impressions","Impressions","อิมเพรสชัน"],["reach","Reach","การเข้าถึง"],["frequency","Frequency","ความถี่"],["videoPlays","Video plays","จำนวนครั้งที่เล่นวิดีโอ"],["thruplays","ThruPlay","ThruPlay"],["fullViews","100% video plays","การดูวิดีโอครบ 100%"],["completionRate","100% / plays","100% / จำนวนเล่น"],["costThruplay","Cost / ThruPlay","ต้นทุนต่อ ThruPlay"],["daily","Daily trend","ผลรายวัน"],["unique","Unique link clicks","คลิกลิงก์ที่ไม่ซ้ำกัน"],["ends","Ends","สิ้นสุด"],["quality","Quality ranking","อันดับคุณภาพ"],["engagement","Engagement ranking","อันดับการมีส่วนร่วม"],["conversion","Conversion ranking","อันดับการคอนเวอร์ชัน"]]}}</script><script>
+(()=>{
+const model=JSON.parse(document.getElementById('meta-report-data').textContent);
+const accounts=model.accounts,types=['campaign','adset','ad'];const state={lang:'en',account:accounts[0]?.label||'AFCL',level:'campaign',page:0,size:50,search:'',sort:'name',preset:'project',dateFrom:model.period.since,dateTo:model.period.until,videoId:'',rankingMetric:'videoPlays',accountRankingMetric:'unique'};
+const dict={en:{header:'Wavepool Party · Daily Ads Monitor',report:'Reporting period',generated:'Generated',count:'Items',spend:'Amount spent',impr:'Impressions',known:'with insights',accounts:'Accounts',level:'Level',campaign:'Campaigns',adset:'Ad sets',ad:'Ads',search:'Search by name or ID',rows:'Rows / page',sort:'Sort by',name:'Name',high:'Highest spend',low:'Lowest spend',next:'Next',prev:'Previous',empty:'No records to display',notSetup:'This ad account is not configured in 01 Config; no records have been fetched.',notes:'Current On/Off and budgets are live snapshots. Spend, reach, results and rankings are reported for the selected period; missing is not zero. Delivery is API-derived and may differ from Ads Manager.',partial:'Data availability / coverage',missing:'rows without Insights',recommend:'Meta API did not return recommendations for some campaigns; this is not proof that Meta Ads Manager has zero recommendations.',child:'Ad set and Ad spend is fetched directly from level-specific Insights, never copied from campaign totals.',levelNote:'Columns differ by level. Video plays, ThruPlay and watch-through metrics come from daily ad-level Insights. A missing metric is not a zero. Created-in-period does not mean newly detected.',pageLabel:'of',unconfigured:'Not configured',noData:'No Insights row',current:'Current API status',topVideo:'Top video',rankTitle:'Video ranking by unique link clicks',rankClicks:'Unique link clicks',rankPlays:'Video plays',rankThru:'ThruPlay',rankNoData:'No video ranking data in the selected date range'},th:{header:'รายงานสถานะและผล Meta Ads',report:'ช่วงข้อมูล',generated:'สร้างรายงานเมื่อ',count:'จำนวนรายการ',spend:'จำนวนเงินที่ใช้ไป',impr:'อิมเพรสชัน',known:'มีข้อมูล Insights',accounts:'บัญชี',level:'ระดับ',campaign:'แคมเปญ',adset:'ชุดโฆษณา',ad:'โฆษณา',search:'ค้นหาชื่อหรือ ID',rows:'จำนวนต่อหน้า',sort:'เรียงตาม',name:'ชื่อ',high:'ใช้จ่ายมากสุด',low:'ใช้จ่ายน้อยสุด',next:'ถัดไป',prev:'ก่อนหน้า',empty:'ไม่พบรายการ',notSetup:'บัญชีนี้ยังไม่ได้ตั้งค่าใน 01 Config จึงยังไม่มีข้อมูลที่ดึงจาก API',notes:'สถานะเปิด/ปิดและงบเป็นค่าขณะดึงข้อมูล ส่วนยอดใช้จ่ายและผลลัพธ์เป็นข้อมูลตามช่วงวันที่ ค่า — ไม่ใช่เลขศูนย์ สถานะ Delivery สรุปจาก API และอาจต่างจาก Ads Manager',partial:'ความครบถ้วนของข้อมูล',missing:'รายการที่ไม่มี Insights',recommend:'Meta API ไม่ส่งคำแนะนำของบางแคมเปญ ไม่ได้ยืนยันว่าใน Ads Manager ไม่มีคำแนะนำ',child:'ยอดใช้จ่ายระดับชุดโฆษณาและโฆษณาดึงจาก Insights ของแต่ละระดับโดยตรง ไม่ได้คัดลอกจากแคมเปญ',levelNote:'แต่ละระดับมีหัวตารางแยกกัน จำนวนเล่นวิดีโอ ThruPlay และยอดดูจบมาจาก Insights รายวัน ค่าที่ไม่มีข้อมูลไม่ใช่ศูนย์ วันที่สร้างในช่วงรายงานไม่ได้แปลว่าเพิ่งตรวจพบ',pageLabel:'จาก',unconfigured:'ยังไม่ตั้งค่า',noData:'ไม่มีข้อมูล Insights',current:'สถานะ API ปัจจุบัน',topVideo:'วิดีโออันดับ 1',rankTitle:'อันดับวิดีโอตามคลิกลิงก์ที่ไม่ซ้ำ',rankClicks:'คลิกลิงก์ที่ไม่ซ้ำ',rankPlays:'จำนวนครั้งที่เล่นวิดีโอ',rankThru:'ThruPlay',rankNoData:'ยังไม่มีข้อมูลจัดอันดับวิดีโอในช่วงวันที่เลือก'}};
+const $=id=>document.getElementById(id);const T=k=>dict[state.lang][k]||k;const escape=x=>String(x??'').replace(/[&<>\"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[c]));
+const n=(v,d=0)=>v===null||v===undefined||v===''||!Number.isFinite(Number(v))?'—':new Intl.NumberFormat(state.lang==='th'?'th-TH':'en-US',{maximumFractionDigits:d}).format(Number(v));
+function price(v){if(v===null||v===undefined)return '—';const cur=accounts.find(a=>a.label===state.account)?.currency||'THB';try{return new Intl.NumberFormat(state.lang==='th'?'th-TH':'en-US',{style:'currency',currency:cur,minimumFractionDigits:2,maximumFractionDigits:2}).format(v)}catch(e){return n(v,2)+' '+cur}}
+const status=x=>{let v=x.status,lab=v==='ACTIVE'?(state.lang==='th'?'เปิด':'On'):v==='PAUSED'?(state.lang==='th'?'ปิด':'Off'):v||'—';return '<span class="state '+(v==='ACTIVE'?'on':v==='PAUSED'?'off':'neutral')+'">'+escape(lab)+'</span>'};
+function delivery(v){const fromThai={'เปิดตาม API':'On (delivery not confirmed)','ปิด':'Off','เก็บถาวร':'Archived','ลบแล้ว':'Deleted','ไม่พบโฆษณาจาก API':'No ads returned by API','โฆษณาที่พบถูกพักทั้งหมด':'All ads paused','สิ้นสุดกำหนดเวลา':'Schedule ended','ชุดโฆษณาสิ้นสุดเวลาแล้ว':'Ad sets ended','ชุดโฆษณายังไม่เริ่ม':'Ad sets not started','ยังไม่ถึงเวลาเริ่ม':'Scheduled to start','ถูกพักตาม API':'Paused per API','ไม่ทราบสถานะการแสดงโฆษณา':'Delivery unconfirmed'};if(state.lang==='en')return fromThai[v]||v;const translate={'On (delivery not confirmed)':'เปิดตาม API (ยังไม่ยืนยันการส่ง)','Off':'ปิด','Paused':'หยุดพัก','Campaign paused':'แคมเปญปิด','Ad set paused':'ชุดโฆษณาปิด','Schedule ended':'สิ้นสุดเวลา','Pending review':'รอการตรวจ','Disapproved':'ไม่อนุมัติ','Processing':'กำลังประมวลผล','Issues flagged':'มีปัญหา','Pending review':'อยู่ระหว่างตรวจสอบ'};return translate[v]||v}
+function budget(v){let s=v||'—';if(state.lang==='en')return s.replace(/รายวัน/g,'per day').replace(/ตลอดอายุ/g,'lifetime').replace(/งบระดับชุดโฆษณา/g,'Ad set-level budgets').replace(/(\d+)\s*ชุด/g,'$1 ad sets').replace(/ไม่มีข้อมูลงบประมาณ/g,'Budget not reported').replace(/ไม่ทราบสกุลเงิน/g,'Unknown currency');return s.replace('Parent campaign: ','งบระดับแคมเปญ: ').replace(' per day',' ต่อวัน').replace(' lifetime',' ตลอดอายุ').replace('Not reported','ไม่มีข้อมูลงบประมาณ').replace('งบระดับชุดโฆษณา','งบระดับชุดโฆษณา').replace('รายวัน','ต่อวัน').replace('ตลอดอายุ','ตลอดอายุ')}
+function attribution(v){let s=v||'—';if(state.lang==='en')return s.replace(/คลิก\s*(\d+)\s*วัน/g,(_,n)=>n+'-day click').replace(/ดู\s*(\d+)\s*วัน/g,(_,n)=>n+'-day view').replace('ไม่มีข้อมูลการระบุที่มา','Not reported').replace('หลายรูปแบบ:','Multiple settings:').replace(/;\s*ไม่มีข้อมูล\s*(\d+)\s*ชุด/g,'; not reported for $1 ad sets');return s.replace(/(\d+)-day click/g,(_,n)=>'คลิก '+n+' วัน').replace(/(\d+)-day view/g,(_,n)=>'ดู '+n+' วัน')}
+function outcome(v){const vals={'การคลิกลิงก์':'Link clicks','การเข้าชมหน้าเว็บไซต์':'Landing page views','การเข้าชมหน้าเว็บไซต์ (omni_landing_page_view)':'Landing page views (omni)','การซื้อ (omni_purchase)':'Purchases (omni)','การซื้อ (purchase)':'Purchases','การซื้อผ่าน Pixel':'Pixel purchases','ไม่มีข้อมูลผลลัพธ์ในช่วงวันที่':'No results in date range','ต้องกำหนดชนิดผลลัพธ์':'Result metric unverified'};return state.lang==='en'?(vals[v]||v):v}
+// Only link to Meta-owned HTTPS hosts and valid numeric ad/video IDs.
+// Preview share links can require login or expire; Ads Manager is the reliable review fallback.
+function trustedMetaUrl(raw){
+ if(typeof raw!=='string'||!raw)return '';
+ try{const u=new URL(raw);return u.protocol==='https:'&&['fb.me','facebook.com','www.facebook.com','m.facebook.com','business.facebook.com','adsmanager.facebook.com','instagram.com','www.instagram.com'].includes(u.hostname.toLowerCase())?u.href:'';}catch(e){return '';}
+}
+function adManagerUrl(row,acc){
+ const adid=String(row?.id||''),account=String(acc?.id||'');
+ if(!/^\d{8,}$/.test(adid)||!/^act_\d+$/.test(account))return '';
+ return 'https://adsmanager.facebook.com/adsmanager/manage/ads?act='+encodeURIComponent(account.slice(4))+'&selected_ad_ids='+encodeURIComponent(adid);
+}
+function videoLinkInfo(row,acc){
+ const manager=adManagerUrl(row,acc);
+ const preview=trustedMetaUrl(row?.previewUrl);
+ const instagram=trustedMetaUrl(row?.instagramUrl);
+ const videoId=String(row?.videoId||'');
+ const video=/^\d{8,}$/.test(videoId)?'https://www.facebook.com/watch/?v='+encodeURIComponent(videoId):'';
+ // Prefer opening the video directly. Keep Meta's shareable ad preview as a separate action.
+ const main=video||instagram||preview||manager;
+ const source=video?'video':instagram?'instagram':preview?'preview':'manager';
+ return {main,manager,preview,instagram,video,source};
+}
+function metaAnchor(url,inner,clazz,description){
+ return url?'<a href="'+escape(url)+'" target="_blank" rel="noopener noreferrer" class="'+clazz+'" title="'+escape(description)+'" aria-label="'+escape(description)+'">'+inner+'</a>':inner;
+}
+function videoQuickActions(row,acc){
+ const l=videoLinkInfo(row,acc);
+ const first=l.source==='preview'?(state.lang==='th'?'▶ ดูตัวอย่างโฆษณา':'▶ Preview ad'):
+  l.source==='instagram'?(state.lang==='th'?'▶ ดูโพสต์ Instagram':'▶ View Instagram post'):
+  l.source==='video'?(state.lang==='th'?'▶ ดูวิดีโอบน Facebook':'▶ Watch on Facebook'):
+  (state.lang==='th'?'เปิด Ads Manager เพื่อดูตัวอย่าง':'Open in Ads Manager to preview');
+ const hint=l.source==='manager'?(state.lang==='th'?'เปิดรายการโฆษณาแล้วเลือก Preview':'Open this ad in Ads Manager and choose Preview'):
+  (state.lang==='th'?'ลิงก์อาจต้องเข้าสู่ระบบ Meta':'Meta login/permission may be required');
+ const primary=metaAnchor(l.main,escape(first),'video-action',hint);
+ const previewAction=l.preview&&l.preview!==l.main?metaAnchor(l.preview,escape(state.lang==='th'?'▶ ดูตัวอย่างโฆษณา (Meta)':'▶ Preview ad (Meta)'),'video-action secondary',state.lang==='th'?'Meta อาจให้ยืนยันก่อนแสดงตัวอย่างโฆษณา':'Meta may ask you to confirm before showing the ad preview'):'';
+ const instagramAction=l.instagram&&l.instagram!==l.main?metaAnchor(l.instagram,escape(state.lang==='th'?'ดูโพสต์ Instagram':'View Instagram post'),'video-action secondary',state.lang==='th'?'เปิดโพสต์ Instagram':'Open Instagram post'):'';
+ const managerAction=l.manager&&l.main!==l.manager?metaAnchor(l.manager,escape(state.lang==='th'?'Ads Manager (สำรอง)':'Ads Manager (fallback)'),'video-action secondary',state.lang==='th'?'ดูโฆษณาใน Ads Manager':'Review this ad in Ads Manager'):'';
+ return '<div class="video-actions">'+primary+previewAction+instagramAction+managerAction+'</div>';
+}
+function linkedThumb(row,acc,thumb,mainLabel){
+ const l=videoLinkInfo(row,acc);
+ return metaAnchor(l.main,thumb,'video-thumb-click',mainLabel);
+}
+function linkedName(row,acc){
+ const l=videoLinkInfo(row,acc);
+ return metaAnchor(l.main,escape(row.name||row.id),'video-link-name',state.lang==='th'?'เปิดวิดีโอ/ดูตัวอย่างโฆษณา':'Open video / ad preview');
+}
+
+function cell(row,key){switch(key){
+case 'status':return status(row);
+case 'name':{
+ const acc=accounts.find(a=>a.label===state.account);
+ const isVideo=row.level==='ad'&&(row.media==='video'||/^\d{8,}$/.test(row.videoId)||row.videoPlays!==null);
+ const thumb= row.level==='ad'&&/^https:\/\//.test(row.thumbnail)?'<img src="'+escape(row.thumbnail)+'" loading="lazy" alt="Creative thumbnail" referrerpolicy="no-referrer" style="width:52px;height:52px;object-fit:cover;border-radius:6px;float:left;margin:0 10px 3px 0"/>':'';
+ const img=isVideo&&thumb?metaAnchor(videoLinkInfo(row,acc).main,thumb,'video-link-name',state.lang==='th'?'ดูวิดีโอหรือ Preview':'Open video or preview'):thumb;
+ const name=isVideo?linkedName(row,acc):escape(row.name);
+ return img+'<b>'+name+'</b><small>ID '+escape(row.id)+'</small>'+(isVideo?videoQuickActions(row,acc):'')+(row.isNew?'<small class="hist-badge">'+(state.lang==='th'?'NEW · เพิ่งพบในระบบ':'NEW · first detected')+'</small>':'')+(row.statusChanged||row.creativeChanged?'<small class="hist-change">'+(state.lang==='th'?'มีการเปลี่ยนแปลง':'Changed since previous snapshot')+'</small>':'')+(row.firstSeen?'<small>'+(state.lang==='th'?'พบครั้งแรก: ':'First seen: ')+escape(row.firstSeen.replace('T',' ').slice(0,16))+' UTC</small>':'')+(row.createdInPeriod?'<small style="color:#08734c">'+(state.lang==='th'?'สร้างในช่วงที่เลือก':'Created in selected period')+'</small>':'');}
+case 'media':return escape(row.media==='video'?(state.lang==='th'?'วิดีโอ':'Video'):row.media==='unverified'?(state.lang==='th'?'ยังยืนยันชนิดไม่ได้':'Unverified'):state.lang==='th'?'ไม่ทราบชนิด':'Unknown');
+case 'created':return escape(row.created||'—');
+case 'videoPlays':case 'thruplays':case 'fullViews':return n(row[key]);
+case 'completionRate':return n(row.completionRate,1)==='—'?'—':n(row.completionRate,1)+'%';
+case 'costThruplay':return price(row.costThruplay);
+case 'daily':{
+ if(!row.daily?.length)return '—';
+ const dailyRows=row.daily.map(d=>'<tr><td>'+escape(d.date)+'</td><td class="num">'+price(d.spend)+'</td><td class="num">'+n(d.impressions)+'</td><td class="num">'+n(d.videoPlays)+'</td><td class="num">'+n(d.thruplays)+'</td><td class="num">'+n(d.fullViews)+'</td></tr>').join('');
+ const labels=state.lang==='th'?['วัน','ใช้จ่าย','Impr.','เล่น','ThruPlay','ดูจบ']:['Day','Spend','Impr.','Plays','ThruPlay','100%'];
+ return '<details><summary>'+(state.lang==='th'?'ดูรายวัน':'View daily')+' ('+n(row.daily.length)+')</summary><div style="overflow:auto;max-width:560px;max-height:300px"><table style="font-size:10px"><thead><tr>'+labels.map(t=>'<th>'+escape(t)+'</th>').join('')+'</tr></thead><tbody>'+dailyRows+'</tbody></table></div></details>';}
+
+case 'campaign':return '<span title="'+escape(row.campaignId)+'">'+escape(row.campaign||'—')+'</span>';
+case 'adset':return '<span title="'+escape(row.adsetId)+'">'+escape(row.adset||'—')+'</span>';
+case 'delivery':return '<span title="'+escape(row.deliveryBasis)+'">'+escape(delivery(row.delivery))+'</span><small>'+escape(row.effective||'')+'</small>';
+case 'result':return n(row.result,0)+'<small>'+escape(outcome(row.resultLabel))+'</small>';
+case 'cost':return price(row.cost);
+case 'spend':return '<b>'+price(row.spend)+'</b>';
+case 'impressions':case 'reach':case 'unique':return n(row[key]);
+case 'frequency':case 'roas':return n(row[key],2);
+case 'budget':return '<span title="'+escape(row.budget||'')+'">'+escape(budget(row.budget))+'</span>';
+case 'attribution':return escape(attribution(row.attribution));
+case 'recommendations':return escape(state.lang==='en' ? (/^\d+\s+คำแนะนำ/.test(row.recommendations)?row.recommendations.replace(/คำแนะนำ.*/, 'recommendation(s) (API)'):'Recommendations not returned by API'):row.recommendations||'—');
+case 'ends':case 'schedule':case 'updated':return escape(key==='schedule'?([row.start,row.ends].filter(x=>x&&x!=='—').join(' → ')||'—'):row[key]||'—');
+default:return escape(row[key]||'—');
+}}
+
+// For custom dates we use daily source metrics for the *same object level*.
+// Never sum daily Reach, Frequency, unique clicks, Results or ROAS across days.
+const dayNumber=s=>{const d=Date.parse(s+'T00:00:00Z');return Number.isFinite(d)?d:null};
+const offsetDay=(s,n)=>{const t=dayNumber(s);return t===null?s:new Date(t+n*86400000).toISOString().slice(0,10)};
+function setPeriod(preset){
+ const last=model.period.until,first=model.period.since;
+ if(preset==='yesterday'&&last<=first)return; // first project day has no previous day in this saved report
+ state.preset=preset;
+ if(preset==='project'){state.dateFrom=first;state.dateTo=last}
+ if(preset==='today'){state.dateFrom=last;state.dateTo=last}
+ if(preset==='yesterday'){state.dateFrom=offsetDay(last,-1);state.dateTo=state.dateFrom}
+ if(preset==='week'){state.dateFrom=offsetDay(last,-6)<first?first:offsetDay(last,-6);state.dateTo=last}
+ if(preset!=='custom'){$('date-from').value=state.dateFrom;$('date-to').value=state.dateTo}
+ reset();
+}
+function slicedDaily(row){return (row.daily||[]).filter(d=>d.date>=state.dateFrom && d.date<=state.dateTo)}
+function viewForRange(row){
+ const copy={...row};
+ const sliced=slicedDaily(row);
+ copy.daily=sliced;
+ copy.createdInPeriod=Boolean(copy.created && copy.created>=state.dateFrom && copy.created<=state.dateTo);
+ if(state.dateFrom===model.period.since && state.dateTo===model.period.until)return copy;
+ const countDays=Math.floor((dayNumber(state.dateTo)-dayNumber(state.dateFrom))/86400000)+1;
+ const complete=Number.isFinite(countDays)&&countDays>0&&sliced.length===countDays&&new Set(sliced.map(d=>d.date)).size===countDays;
+ const sum=key=>complete&&sliced.every(d=>d[key]!==null&&d[key]!==undefined&&Number.isFinite(Number(d[key])))?sliced.reduce((acc,d)=>acc+Number(d[key]),0):null;
+ copy.spend=sum('spend');copy.impressions=sum('impressions');
+ // Only one-day reach can be displayed, because a multi-day reach needs a direct Meta period request.
+ copy.reach=countDays===1&&sliced.length===1?sliced[0].reach??null:null;
+ copy.result=null;copy.cost=null;copy.resultLabel=state.lang==='th'?'ต้องดึง Insights ตามช่วงวันที่':'Requires exact-period Insights';
+ copy.frequency=null;copy.roas=null;
+ // Single-day unique inline link clicks can be read directly from that day's Meta Insights.
+ // Do NOT add daily unique counts across multiple days; people may repeat across days.
+ // Full-project views use the original exact-period aggregate (row.unique).
+ copy.unique=countDays===1&&sliced.length===1 ? (sliced[0].uniqueInline??null) : null;
+ if(row.level==='ad'){
+  copy.videoPlays=sum('videoPlays');copy.thruplays=sum('thruplays');copy.fullViews=sum('fullViews');
+  copy.completionRate=copy.fullViews!==null && copy.videoPlays>0 ? 100*copy.fullViews/copy.videoPlays:null;
+  copy.costThruplay=copy.spend!==null&&copy.thruplays>0?copy.spend/copy.thruplays:null;
+ }
+ return copy;
+}
+function showDateControls(){
+ const names=state.lang==='th'?{project:'ตั้งแต่เริ่มโครงการ',today:'วันล่าสุด (ภาพ ณ เวลาดึง)',yesterday:'วันก่อนหน้า',week:'ย้อนหลัง 7 วัน',custom:'กำหนดเอง'}:{project:'Project to date',today:'Latest report day',yesterday:'Previous day',week:'Last 7 days',custom:'Custom'};
+ $('date-heading').textContent=state.lang==='th'?'ดูข้อมูลย้อนหลัง':'Historical view';
+ document.querySelectorAll('[data-preset]').forEach(b=>{b.textContent=names[b.dataset.preset];b.classList.toggle('active',b.dataset.preset===state.preset);b.disabled=(b.dataset.preset==='yesterday'&&model.period.since===model.period.until)});
+ $('from-label').textContent=state.lang==='th'?'จาก':'From';$('to-label').textContent=state.lang==='th'?'ถึง':'To';
+ $('date-from').min=model.period.since;$('date-from').max=model.period.until;
+ $('date-to').min=model.period.since;$('date-to').max=model.period.until;
+ $('date-from').value=state.dateFrom;$('date-to').value=state.dateTo;
+ const original=state.dateFrom===model.period.since&&state.dateTo===model.period.until;
+ const note=original?
+  (state.lang==='th'?'ตัวเลขช่วงเต็มมาจาก Meta Insights โดยตรง':'Full-period figures are the exact Meta Insights period aggregates'):
+  (state.lang==='th'?'คำนวณเฉพาะยอดใช้จ่าย/อิมเพรสชัน/วิดีโอจากรายวันเมื่อข้อมูลครบทุกวัน; Reach รวม, Results และ ROAS ต้องดึง Meta ใหม่สำหรับช่วงนั้น':'Spend, impressions and video totals use daily source rows only when every day is present. Multi-day Reach, Results and ROAS require a fresh Meta period query');
+ $('date-hint').textContent=note+(uniqueAvailable()&&!original?' · '+(state.lang==='th'?'คลิกลิงก์รายวันเป็น Unique inline link clicks ซึ่งอาจต่างจาก Unique link clicks ในยอดรวม':'Daily clicks are unique inline link clicks, which may differ from full-period unique link clicks'):'')+' · '+(state.lang==='th'?'HTML นี้เป็น snapshot ไม่อัปเดตเอง':'This downloaded HTML is a snapshot, not a live API connection')+(model.period.partial_today?(state.lang==='th'?' · วันนี้อาจยังไม่ครบวัน':' · Latest day may be partial'):'');
+ $('period').textContent=T('report')+': '+state.dateFrom+' – '+state.dateTo;
+}
+function drawVideoTrend(acc){
+ const section=$('trend-panel');
+ const rows=acc?.ad?.filter(a=>a.media==='video'||a.daily?.some(d=>d.videoPlays!==null));
+ section.classList.toggle('show',Boolean(state.level==='ad'&&rows?.length));
+ if(!rows?.length||state.level!=='ad')return;
+ $('trend-title').textContent=state.lang==='th'?'ผลวิดีโอรายวัน (ตาม Ad ID)':'Video performance by day (per Ad ID)';
+ const select=$('trend-ad');
+ if(!rows.some(a=>a.id===state.videoId))state.videoId=rows[0].id;
+ select.innerHTML=rows.map(a=>'<option value="'+escape(a.id)+'">'+escape(a.name)+' — '+escape(a.id)+'</option>').join('');select.value=state.videoId;
+ const opt=$('trend-metric').options;
+ ['Video plays','ThruPlay','100% views','Amount spent','Unique inline link clicks'].forEach((v,i)=>opt[i].textContent=state.lang==='th'?['เล่นวิดีโอ','ThruPlay','ดูครบ 100%','ใช้จ่าย','คลิก Inline link ไม่ซ้ำ'][i]:v);
+ const ad=rows.find(a=>a.id===state.videoId)||rows[0];
+ const points=slicedDaily(ad).filter(d=>d[$('trend-metric').value]!==null&&d[$('trend-metric').value]!==undefined);
+ const svg=$('trend-svg');
+ const dates=points.map(d=>d.date), nums=points.map(d=>Number(d[$('trend-metric').value]));
+ if(!points.length){svg.innerHTML='<text x="24" y="78">'+escape(state.lang==='th'?'ไม่มีข้อมูลรายวันในช่วงที่เลือก':'No daily source metrics for these dates')+'</text>';}
+ else {
+  const max=Math.max(...nums,0), low=Math.min(...nums,0),denom=Math.max(max-low,1);
+  const coords=nums.map((y,i)=>[26+(points.length===1?420:i*840/(points.length-1)),122-(y-low)*92/denom]);
+  const path=coords.map((v,i)=>(i?'L':'M')+v[0].toFixed(2)+' '+v[1].toFixed(2)).join(' ');
+  let svgText='<line x1="26" y1="122" x2="870" y2="122" stroke="#dbe6f1" stroke-width="1"/>';
+  if(points.length>1)svgText+='<path d="'+path+'" fill="none" stroke="#1b75b8" stroke-width="2.5"/>';
+  svgText+=coords.map((v,i)=>'<circle cx="'+v[0]+'" cy="'+v[1]+'" r="3.8" fill="#1b75b8"><title>'+escape(dates[i]+' · '+n(nums[i],2))+'</title></circle>').join('');
+  svgText+='<text x="28" y="151">'+escape(dates[0])+'</text><text x="805" y="151">'+escape(dates[dates.length-1])+'</text>';
+  svgText+='<text x="32" y="18">'+escape(n(max,2))+'</text>';
+  svg.innerHTML=svgText;
+ }
+ const note=state.lang==='th'?'จุดแสดงเฉพาะวันที่ API คืนค่า; วันที่หายไปไม่ได้หมายถึงศูนย์':'Only dates returned by the API are plotted; gaps do not mean zero';
+ $('trend-sub').textContent=note+' · '+(state.lang==='th'?'ข้อมูลถึง':'Data through')+' '+model.period.until;
+}
+// The executive overview uses ONLY Wavepool Party campaign spend across three accounts;
+// never add campaign, ad-set and ad spend together.
+const OVERVIEW_LABELS=['AFCL','Shopee','Lazada'];
+function overviewAccounts(){return OVERVIEW_LABELS.map(label=>accounts.find(a=>a.label===label)||null);}
+function validAmount(v){return typeof v==='number'&&Number.isFinite(v)?v:null;}
+function sumCents(values){
+ if(!values.length||values.some(v=>validAmount(v)===null))return null;
+ return values.reduce((c,v)=>c+Math.round(v*100),0)/100;
+}
+function overviewCurrency(){
+ const curr=overviewAccounts().filter(Boolean).map(a=>a.currency||'');
+ return curr.length&&curr.every(c=>c===curr[0])?curr[0]:null;
+}
+function overviewMoney(value){
+ if(value===null||value===undefined)return '—';
+ const currency=overviewCurrency();
+ if(!currency)return '—';
+ try{return new Intl.NumberFormat(state.lang==='th'?'th-TH':'en-US',{style:'currency',currency:currency,minimumFractionDigits:2,maximumFractionDigits:2}).format(value);}
+ catch(e){return n(value,2)+' '+currency;}
+}
+function accountPeriodSpend(acc){
+ if(!acc||!Array.isArray(acc.campaign)||!acc.campaign.length)return null;
+ const vals=acc.campaign.map(row=>validAmount(viewForRange(row).spend));
+ return sumCents(vals);
+}
+function dailyAccountSpend(acc,date){
+ if(!acc||!Array.isArray(acc.campaign)||!acc.campaign.length)return null;
+ const amounts=acc.campaign.map(campaign=>{
+  const matches=(campaign.daily||[]).filter(d=>d.date===date);
+  return matches.length===1?validAmount(matches[0].spend):null;
+ });
+ return sumCents(amounts);
+}
+function dateRangeDays(){
+ const days=[];
+ for(let day=state.dateFrom;day<=state.dateTo&&days.length<370;day=offsetDay(day,1))days.push(day);
+ return days;
+}
+function renderOverviewMetrics(){
+ const list=overviewAccounts(),present=list.filter(Boolean),ads=present.reduce((count,acc)=>count+(acc.ad||[]).length,0);
+ $('metric-count-label').textContent=state.lang==='th'?'โฆษณาทั้ง 3 บัญชี':'Total ads · All accounts';
+ $('metric-count').textContent=n(ads);
+ $('metric-count-small').textContent=state.lang==='th'?'โหลดได้ '+n(present.length)+'/3 บัญชี':'Loaded '+n(present.length)+'/3 accounts';
+ const amounts=list.map(accountPeriodSpend),total=sumCents(amounts),currency=overviewCurrency();
+ $('metric-spend-label').textContent=state.lang==='th'?'ยอดใช้จ่ายรวม · 3 บัญชี':'Total amount spent · 3 accounts';
+ $('metric-spend').textContent=currency?overviewMoney(total):'—';
+ const parts=OVERVIEW_LABELS.map((name,i)=>name+' '+overviewMoney(amounts[i]));
+ $('metric-spend-small').textContent=parts.join('  ·  ')+(total===null?' · '+(state.lang==='th'?'ข้อมูลไม่ครบ':'Incomplete data'):'');
+}
+function renderDailySpendPanel(){
+ const present=overviewAccounts(),days=dateRangeDays(),currency=overviewCurrency();
+ $('daily-spend-title').textContent=state.lang==='th'?'ยอดใช้จ่ายรายวัน · รวม 3 บัญชี':'Daily amount spent · All 3 accounts';
+ $('daily-spend-sub').textContent=state.lang==='th'?'ข้อมูลจาก Campaign Insights รายวัน ไม่บวกยอดซ้ำจาก Ad sets / Ads':'Campaign-level daily Insights only; no double counting with Ad sets or Ads';
+ $('daily-spend-range').textContent=state.dateFrom+' – '+state.dateTo;
+ const headers=state.lang==='th'?['วันที่','AFCL','Shopee','Lazada','รวมรายวัน']:['Date','AFCL','Shopee','Lazada','Daily total'];
+ $('daily-spend-head').innerHTML='<tr>'+headers.map(t=>'<th>'+escape(t)+'</th>').join('')+'</tr>';
+ const rows=[];let complete=true,completeTotalCents=0;
+ for(const date of days){
+  const amounts=present.map(acc=>dailyAccountSpend(acc,date));
+  const total=sumCents(amounts);
+  if(total===null)complete=false;else completeTotalCents+=Math.round(total*100);
+  rows.push('<tr><td>'+escape(date)+'</td>'+amounts.map(v=>'<td>'+escape(overviewMoney(v))+'</td>').join('')+'<td class="daily-total">'+escape(overviewMoney(total))+'</td></tr>');
+ }
+ $('daily-spend-body').innerHTML=rows.join('')||'<tr><td colspan="5">—</td></tr>';
+ const full=isFullPeriod();
+ const snapshot=sumCents(present.map(accountPeriodSpend));
+ const dailyTotal=complete&&days.length?completeTotalCents/100:null;
+ const difference=full&&currency&&snapshot!==null&&dailyTotal!==null?Math.round((dailyTotal-snapshot)*100)/100:null;
+ let note=state.lang==='th'?'— หมายถึงไม่มีข้อมูล ไม่ใช่ศูนย์ · วันที่ล่าสุดอาจยังไม่ครบวัน':'— means missing data, not zero · Latest date may be partial';
+ if(!currency)note+=' · '+(state.lang==='th'?'สกุลเงินของบัญชีไม่ตรงกัน จึงไม่รวมยอด':'Currency mismatch or missing account; cannot combine amounts');
+ if(!complete)note+=' · '+(state.lang==='th'?'มีรายวันบางบัญชีไม่ครบ ไม่แสดงยอดรวมของวันนั้น':'Some accounts have incomplete daily data; their daily total is not displayed');
+ if(difference!==null&&Math.abs(difference)>=0.01){
+  const abs=overviewMoney(Math.abs(difference));
+  note+=' · '+(state.lang==='th'?'ข้อสังเกต: ผลรวมข้อมูลรายวันต่างจากยอดช่วงเต็มของ Meta '+abs+' (รายวัน '+overviewMoney(dailyTotal)+' เทียบกับยอดช่วงเต็ม '+overviewMoney(snapshot)+')':'Note: daily source rows differ from exact Meta period totals by '+abs+' (daily rows '+overviewMoney(dailyTotal)+' vs period '+overviewMoney(snapshot)+')');
+ }
+ $('daily-spend-note').textContent=note;
+ $('daily-spend-note').classList.toggle('has-warning',!complete||!currency||(difference!==null&&Math.abs(difference)>=0.01));
+}
+function videoRowsForRanking(acc){
+ // Video classification is independent of the presence of thumbnails. Never include Carousel by its name alone.
+ const videoAds=(acc?.ad||[]).filter(a=>a.media==='video'||/^\d{8,}$/.test(a.videoId||'')||a.videoPlays!==null||a.thruplays!==null);
+ return videoAds.filter(a=>!(a.created&&a.created>state.dateTo)).map(viewForRange);
+}
+function isFullPeriod(){return state.dateFrom===model.period.since&&state.dateTo===model.period.until;}
+function uniqueAvailable(){return isFullPeriod()||state.dateFrom===state.dateTo;}
+function uniqueCaption(){
+ return isFullPeriod()?T('rankClicks'):(state.lang==='th'?'คลิก Inline link ที่ไม่ซ้ำ':'Unique inline link clicks');
+}
+function rankVideos(){
+ const all=overviewAccounts().filter(Boolean).flatMap(acc=>videoRowsForRanking(acc).map(row=>({...row,_account:acc.label})));
+ const primary=state.rankingMetric;
+ return all.sort((a,b)=>{
+  const ap=validAmount(a[primary])??-1,bp=validAmount(b[primary])??-1;
+  if(bp!==ap)return bp-ap;
+  const av=validAmount(a.videoPlays)??-1,bv=validAmount(b.videoPlays)??-1;
+  if(bv!==av)return bv-av;
+  const at=validAmount(a.thruplays)??-1,bt=validAmount(b.thruplays)??-1;
+  if(bt!==at)return bt-at;
+  return String(a._account+'|'+a.id).localeCompare(String(b._account+'|'+b.id));
+ });
+}
+function renderTopVideoMetric(){
+ const label=$('metric-topvideo-label'),body=$('metric-topvideo-body');
+ if(!label||!body)return;
+ label.textContent=state.lang==='th'?'วิดีโออันดับ 1 · ทั้ง 3 บัญชี':'Top video · All 3 accounts';
+ const top=rankVideos().find(row=>validAmount(row[state.rankingMetric])!==null);
+ if(!top){body.innerHTML='<div class="top-video-empty">'+escape(T('rankNoData'))+'</div>';return;}
+ const acc=accounts.find(a=>a.label===top._account);
+ const thumb=top.thumbnail?'<img src="'+escape(top.thumbnail)+'" alt="'+escape(top.name||top.id)+'" class="top-video-img"/>':'<div class="top-video-fallback">#1</div>';
+ const pic=linkedThumb(top,acc,thumb,state.lang==='th'?'ดูวิดีโอหรือโฆษณาอันดับหนึ่ง':'Open top video / ad preview');
+ const path=[top.campaign,top.adset].filter(Boolean).join(' / ');
+ body.innerHTML='<div class="top-video-card"><div class="top-video-thumb">'+pic+'</div><div class="top-video-copy"><span class="account-label">'+escape(top._account)+'</span><strong>'+linkedName(top,acc)+'</strong><small>ID '+escape(top.id||'')+'</small>'+(path?'<div class="top-video-path">'+escape(path)+'</div>':'')+'<div class="top-video-stats"><span>'+escape(T('rankPlays'))+': <b>'+n(top.videoPlays)+'</b></span>'+(uniqueAvailable()?'<span>'+escape(uniqueCaption())+': <b>'+n(top.unique)+'</b></span>':'')+'<span>'+escape(T('rankThru'))+': <b>'+n(top.thruplays)+'</b></span></div>'+videoQuickActions(top,acc)+'</div></div>';
+}
+function renderVideoRanking(){
+ const panel=$('ranking-panel'),title=$('ranking-title'),body=$('ranking-body');
+ if(!panel||!title||!body)return;
+ if(!uniqueAvailable()&&state.rankingMetric==='unique')state.rankingMetric='videoPlays';
+ const metricSelect=$('ranking-metric');
+ metricSelect.querySelector('option[value="unique"]').disabled=!uniqueAvailable();
+ metricSelect.value=state.rankingMetric;
+ const metricTitle=state.rankingMetric==='unique'?uniqueCaption():state.rankingMetric==='thruplays'?T('rankThru'):T('rankPlays');
+ title.textContent=(state.lang==='th'?'อันดับวิดีโอรวม AFCL + Shopee + Lazada':'Video ranking · AFCL + Shopee + Lazada')+' · '+metricTitle;
+ $('ranking-sub').textContent=state.lang==='th'?'จัดอันดับแยกตาม Ad ID ของแต่ละบัญชี ไม่รวมคลิปเดียวกันข้ามบัญชี · ยอดเล่นไม่ใช่จำนวนผู้ชมที่ไม่ซ้ำ':'Each ad is ranked separately by Ad ID; reused creatives are not merged · Video plays are not unique viewers';
+ $('rank-sort-label').textContent=state.lang==='th'?'จัดอันดับตาม':'Rank by';
+ const options=metricSelect.options;
+ options[0].textContent=T('rankPlays');options[1].textContent=uniqueCaption();options[2].textContent=T('rankThru');
+ const ranked=rankVideos().slice(0,20);
+ if(!ranked.length){panel.classList.add('show');body.innerHTML='<div class="top-video-empty">'+escape(T('rankNoData'))+'</div>';return;}
+ panel.classList.add('show');
+ const heads=state.lang==='th'?['#','วิดีโอ','บัญชี','ยอดเล่น',uniqueCaption(),'ThruPlay','ยอดใช้จ่าย']:['#','Video','Account','Video plays',uniqueCaption(),'ThruPlay','Amount spent'];
+ body.innerHTML='<div class="rank-wrap"><table class="rank-table"><thead><tr>'+heads.map(t=>'<th>'+escape(t)+'</th>').join('')+'</tr></thead><tbody>'+ranked.map((row,i)=>{
+  const acc=accounts.find(a=>a.label===row._account);
+  const thumb=row.thumbnail?'<img src="'+escape(row.thumbnail)+'" alt="'+escape(row.name||row.id)+'"/>':'<div class="rank-thumb-empty">'+(i+1)+'</div>';
+  return '<tr><td class="rank-num">'+(i+1)+'</td><td class="rank-video"><div class="rank-media"><div class="rank-thumb">'+linkedThumb(row,acc,thumb,state.lang==='th'?'เปิดวิดีโออันดับ '+(i+1):'Open ranked video '+(i+1))+'</div><div><div class="rank-name">'+linkedName(row,acc)+'</div><span class="rank-muted">ID '+escape(row.id||'')+'</span>'+videoQuickActions(row,acc)+'</div></div></td><td><span class="account-label">'+escape(row._account)+'</span></td><td class="num">'+n(row.videoPlays)+'</td><td class="num">'+(uniqueAvailable()?n(row.unique):'—')+'</td><td class="num">'+n(row.thruplays)+'</td><td class="num">'+escape(overviewMoney(row.spend))+'</td></tr>';
+ }).join('')+'</tbody></table></div>';
+}
+// Individual video ranking for the selected ad account (not the cross-account leaderboard).
+// Keep the previous default of unique link clicks. Date-window subsets cannot safely
+// derive unique link clicks by summing daily rows, so use video plays for those ranges.
+function renderAccountVideoRanking(acc){
+ const panel=$('account-ranking-panel'), title=$('account-ranking-title'), body=$('account-ranking-body');
+ if(!panel||!title||!body)return;
+ const full=isFullPeriod();
+ const metric=(!uniqueAvailable() && state.accountRankingMetric==='unique')?'videoPlays':state.accountRankingMetric;
+ const select=$('account-ranking-metric');
+ select.querySelector('option[value="unique"]').disabled=!uniqueAvailable();
+ select.value=metric;
+ const opts=select.options;
+ opts[0].textContent=uniqueCaption();opts[1].textContent=T('rankPlays');opts[2].textContent=T('rankThru');
+ $('account-rank-sort-label').textContent=state.lang==='th'?'จัดอันดับตาม':'Rank by';
+ const metricName=metric==='unique'?uniqueCaption():metric==='thruplays'?T('rankThru'):T('rankPlays');
+ title.textContent=(state.lang==='th'?'อันดับวิดีโอเฉพาะบัญชี ':'Video ranking · ')+(acc?.label||state.account)+' · '+metricName;
+ $('account-ranking-sub').textContent=state.lang==='th'
+  ? 'แสดงวิดีโอแต่ละโฆษณา (Ad ID) เฉพาะบัญชีที่เลือก ไม่รวมกับบัญชีอื่น'
+  : 'Each video ad (Ad ID) in the selected account; independent of the all-account ranking';
+ $('account-ranking-note').textContent=full
+  ? (state.lang==='th'?'การจัดอันดับตามคลิกเป็น Unique link clicks ไม่ใช่จำนวนคนกดเปิดวิดีโอ · เลือกยอดเล่นเพื่อดูคลิปที่ถูกเล่นมากที่สุด':'Unique link clicks are link clicks, not clicks on the video player. Choose Video plays for most-watched ads.')
+  : uniqueAvailable()
+    ? (state.lang==='th'?'ช่วงวันเดียวแสดง Unique inline link clicks ที่ Meta ส่งมาสำหรับวันนั้น (อาจต่างจาก Unique link clicks ในช่วงรวม)':'Single-day figures are Meta unique inline link clicks, which may differ from full-period unique link clicks.')
+    : (state.lang==='th'?'ช่วงหลายวันใช้ยอดเล่น/ThruPlay; ไม่บวก Unique clicks รายวันเข้าด้วยกัน':'Multi-day subsets use video plays/ThruPlay; daily unique click counts are not additive.');
+ if(!acc){body.innerHTML='<div class="top-video-empty">'+escape(T('notSetup'))+'</div>';return;}
+ const videos=videoRowsForRanking(acc).map(row=>({...row,_account:acc.label}));
+ videos.sort((a,b)=>{
+  const av=validAmount(a[metric])??-1,bv=validAmount(b[metric])??-1;
+  if(bv!==av)return bv-av;
+  const ap=validAmount(a.videoPlays)??-1,bp=validAmount(b.videoPlays)??-1;
+  if(bp!==ap)return bp-ap;
+  const at=validAmount(a.thruplays)??-1,bt=validAmount(b.thruplays)??-1;
+  if(bt!==at)return bt-at;
+  return String(a.id||'').localeCompare(String(b.id||''));
+ });
+ if(!videos.length){body.innerHTML='<div class="top-video-empty">'+escape(T('rankNoData'))+'</div>';return;}
+ const heads=state.lang==='th'
+  ? ['#','วิดีโอโฆษณา · '+acc.label,uniqueCaption(),'ยอดเล่นวิดีโอ','ThruPlay','ยอดใช้จ่าย']
+  : ['#','Video ad · '+acc.label,uniqueCaption(),'Video plays','ThruPlay','Amount spent'];
+ body.innerHTML='<div class="rank-wrap"><table class="rank-table"><thead><tr>'+heads.map(h=>'<th>'+escape(h)+'</th>').join('')+'</tr></thead><tbody>'+videos.map((row,index)=>{
+  const thumb=row.thumbnail?'<img src="'+escape(row.thumbnail)+'" alt="'+escape(row.name||row.id)+'" loading="lazy"/>':'<div class="rank-thumb-empty">'+(index+1)+'</div>';
+  const flags=(row.isNew?'<span class="hist-badge">NEW</span> ':'')+((row.statusChanged||row.creativeChanged)?'<span class="hist-change">'+escape(state.lang==='th'?'มีการเปลี่ยนแปลง':'Changed')+'</span>':'');
+  return '<tr><td class="rank-num">'+(index+1)+'</td><td class="rank-video"><div class="rank-media"><div class="rank-thumb">'+linkedThumb(row,acc,thumb,state.lang==='th'?'เปิดวิดีโอ':'Open video')+'</div><div><div class="rank-name">'+linkedName(row,acc)+'</div><span class="rank-muted">ID '+escape(row.id||'')+'</span>'+flags+videoQuickActions(row,acc)+'</div></div></td><td class="num">'+(uniqueAvailable()?n(row.unique):'—')+'</td><td class="num">'+n(row.videoPlays)+'</td><td class="num">'+n(row.thruplays)+'</td><td class="num">'+escape(overviewMoney(row.spend))+'</td></tr>';
+ }).join('')+'</tbody></table></div>';
+}
+
+function showHistoryBanner(){
+ const h=model.history||{};const el=$('history-banner');
+ const warn=!h.store_ready;
+ el.classList.toggle('warn',warn);
+ el.textContent=warn
+  ? (state.lang==='th'?'ยังไม่ได้เชื่อม Data Table สำหรับตรวจโฆษณาใหม่ (ประวัติจาก Meta ยังคงดูได้)':'History storage unavailable: new-Ad detection not verified. Daily Meta metrics are still available.')
+  : h.baseline_run
+    ? (state.lang==='th'?'รอบแรกเป็นข้อมูลตั้งต้น: ยังไม่ถือว่าโฆษณาใดเป็นโฆษณาใหม่':'Baseline run: existing ads are not NEW; verify node 16 saved')
+    : (state.lang==='th'?'โฆษณาใหม่ที่ตรวจพบ '+n(h.new_detected)+' · โฆษณาที่มีการเปลี่ยนแปลง '+n(h.changed_detected):'Newly detected ads: '+n(h.new_detected)+' · Changed ads: '+n(h.changed_detected));
+}
+
+function show(){
+ document.documentElement.lang=state.lang;$('title').textContent=T('header');showDateControls();showHistoryBanner();$('generated').textContent=T('generated')+': '+(model.generated||'—').replace('T',' ').slice(0,19)+' UTC';
+ $('lang-en').classList.toggle('selected',state.lang==='en');$('lang-th').classList.toggle('selected',state.lang==='th');
+ $('acc-tabs').innerHTML=model.accountTabs.map(label=>{let acc=accounts.find(a=>a.label===label),count=acc?acc[state.level].length:'—';return '<button type="button" data-account="'+escape(label)+'" class="'+(state.account===label?'active':'')+'">'+escape(label)+'<span class="count">'+n(count)+'</span></button>'}).join('');
+ $('level-tabs').innerHTML=types.map(level=>{const acc=accounts.find(a=>a.label===state.account),count=acc?acc[level].length:'—';return '<button type="button" data-level="'+level+'" class="'+(state.level===level?'active':'')+'">'+T(level)+'<span class="count">'+n(count)+'</span></button>'}).join('');
+ $('search').placeholder=T('search');$('size-label').textContent=T('rows');$('sort-label').textContent=T('sort');$('sort-by').options[0].textContent=T('name');$('sort-by').options[1].textContent=T('high');$('sort-by').options[2].textContent=T('low');
+ $('back').textContent='‹';$('forward').textContent='›';$('footnote').textContent=T('notes')+' · '+T('child')+' · '+T('levelNote')+' · '+(state.lang==='th'?'ลิงก์วิดีโออาจต้องเข้าสู่ระบบ Meta และลิงก์ Preview อาจหมดอายุ':'Meta video links may require login and ad preview links can expire');
+ const acc=accounts.find(a=>a.label===state.account),all=acc?acc[state.level].filter(r=>!(state.level==='ad'&&r.created&&r.created>state.dateTo)).map(viewForRange):[],filtered=all.filter(r=>(r.name+' '+r.id+' '+r.campaign+' '+r.adset).toLocaleLowerCase().includes(state.search.toLocaleLowerCase()));
+ filtered.sort((a,b)=>state.sort==='spendDesc'?(b.spend??-1)-(a.spend??-1):state.sort==='spendAsc'?(a.spend??Infinity)-(b.spend??Infinity):a.name.localeCompare(b.name));
+ const pages=Math.max(1,Math.ceil(filtered.length/state.size));state.page=Math.min(state.page,pages-1);
+ const from=state.page*state.size,to=Math.min(from+state.size,filtered.length),visible=filtered.slice(from,to);
+ renderOverviewMetrics();renderDailySpendPanel();renderVideoRanking();renderTopVideoMetric();renderAccountVideoRanking(acc);
+ $('page-text').textContent=filtered.length? n(from+1)+'–'+n(to)+' '+T('pageLabel')+' '+n(filtered.length):'0 '+T('pageLabel')+' 0';
+ $('back').disabled=state.page===0;$('forward').disabled=state.page>=pages-1;
+ $('missing').textContent=acc?'':T('notSetup');$('missing').hidden=Boolean(acc);drawVideoTrend(acc);
+ const cols=model.schemas[state.level];$('table-box').hidden=!acc; if(!acc)return;
+ $('table-header').innerHTML='<tr>'+cols.map(([key,en,th])=>'<th>'+escape(key==='unique'?uniqueCaption():(state.lang==='th'?th:en))+'</th>').join('')+'</tr>';
+ $('table-body').innerHTML=visible.map(row=>'<tr>'+cols.map(([key])=>'<td class="'+(['spend','impressions','reach','result','cost','frequency','unique','roas','videoPlays','thruplays','fullViews','completionRate','costThruplay'].includes(key)?'num ':'')+(key==='name'?'name':key==='campaign'||key==='adset'||key==='delivery'||key==='budget'||key==='daily'?'sub':'')+'">'+cell(row,key)+'</td>').join('')+'</tr>').join('') || '<tr><td colspan="'+cols.length+'" class="empty">'+T('empty')+'</td></tr>';
+}
+function reset(){state.page=0;$('table-box')?.scrollTo?.(0,0);show()}
+$('acc-tabs').addEventListener('click',e=>{let el=e.target.closest('[data-account]');if(el){state.account=el.dataset.account;state.search='';$('search').value='';reset()}});
+$('level-tabs').addEventListener('click',e=>{let el=e.target.closest('[data-level]');if(el){state.level=el.dataset.level;state.search='';$('search').value='';reset()}});
+$('lang-en').addEventListener('click',()=>{state.lang='en';show()});$('lang-th').addEventListener('click',()=>{state.lang='th';show()});
+$('search').addEventListener('input',e=>{state.search=e.target.value;reset()});$('size').addEventListener('change',e=>{state.size=+e.target.value;reset()});
+$('sort-by').addEventListener('change',e=>{state.sort=e.target.value;reset()});
+$('back').addEventListener('click',()=>{if(state.page>0){state.page--;show()}});$('forward').addEventListener('click',()=>{state.page++;show()});
+
+$('date-panel').addEventListener('click',e=>{const button=e.target.closest('[data-preset]');if(button)setPeriod(button.dataset.preset)});
+function handleDateInput(){
+ const from=$('date-from').value,to=$('date-to').value;
+ if(!/^\d{4}-\d{2}-\d{2}$/.test(from)||!/^\d{4}-\d{2}-\d{2}$/.test(to))return;
+ if(from>to||from<model.period.since||to>model.period.until){$('date-hint').textContent=state.lang==='th'?'กรุณาเลือกช่วงวันที่ภายในรายงานและวันเริ่มต้นต้องไม่เกินวันสิ้นสุด':'Choose a valid range within the downloaded report coverage';return;}
+ state.dateFrom=from;state.dateTo=to;state.preset='custom';reset();
+}
+$('date-from').addEventListener('change',handleDateInput);$('date-to').addEventListener('change',handleDateInput);
+$('trend-ad').addEventListener('change',e=>{state.videoId=e.target.value;show()});
+$('trend-metric').addEventListener('change',()=>show());
+$('ranking-metric').addEventListener('change',e=>{state.rankingMetric=e.target.value;show()});
+$('account-ranking-metric').addEventListener('change',e=>{state.accountRankingMetric=e.target.value;show()});
+$('static-preview').remove();$('dashboard').hidden=false;show();
+})();</script></body></html>
